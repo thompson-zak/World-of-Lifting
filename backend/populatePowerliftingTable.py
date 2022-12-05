@@ -2,6 +2,13 @@ import zipfile
 import pandas as pd
 import re
 import os
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+import yaml
+import time
+
+config = yaml.safe_load(open("./config.yml"))
+print(config)
 
 # TODO - full download of the ZIP file from open powerlifting
 # Leave this until nearly done so as to avoid unnecessary downloads
@@ -18,14 +25,20 @@ print('Ingesting powerlifting data to DB...')
 requiredColumns=['Sex','Equipment','Age','AgeClass','Best3SquatKg','Best3BenchKg','Best3DeadliftKg','Place','Federation','Date']
 dateColumns=['Date']
 dataTypes={'Sex': 'string', 'Age': float, 'AgeClass': 'string', 'Best3SquatKg': float, 'Best3BenchKg': float, 'Best3DeadliftKg': float, 'Place': 'string', 'Federation': 'string'}
-# TODO - increase chunk size
-with pd.read_csv('../backend/downloads/openpowerlifting.csv', chunksize=100, usecols=requiredColumns, dtype=dataTypes, parse_dates=dateColumns) as reader:
-	for chunk in reader:
-		# TODO - insert data into table here
-		print(chunk)
-		# TODO - remove this break once done
-		break
-print('Ingestion complete.')
+
+engine = create_engine(config['database']['connection']['string'])
+startTime = time.time()
+
+try:
+	engine.connect().execution_options(autocommit=True).execute(text('TRUNCATE TABLE powerlifting'))
+	with pd.read_csv('../backend/downloads/openpowerlifting.csv', chunksize=50000, usecols=requiredColumns, dtype=dataTypes, parse_dates=dateColumns) as reader:
+		for chunk in reader:
+			chunk.columns = [colName.lower() for colName in requiredColumns]
+			chunk.to_sql('powerlifting', engine, if_exists='append', index=False)
+	print('Ingestion complete. Finished in %s seconds', round(time.time() - startTime, 2))
+except Exception as e:
+	print(e)
+	print('There was an issue. Ingestion did not complete successfully. Finished in %s seconds', round(time.time() - startTime, 2))
 
 print('Cleaning up downloaded and extracted files...')
 os.remove('../backend/downloads/openpowerlifting.csv')

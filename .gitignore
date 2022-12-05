@@ -1,3 +1,6 @@
+#Config files
+/backend/config.yml
+
 #Downloaded data files
 /backend/downloads/
 
