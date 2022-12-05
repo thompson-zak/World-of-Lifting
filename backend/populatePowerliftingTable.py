@@ -14,13 +14,18 @@ for info in zf.infolist():
 		zf.extract(info, '../backend/downloads/')
 		print('Extraction complete')
 
-# Currently pandas kills the process during dataframe creation
-## 1. Add dType to read_csv call
-## 2. If still an issue, chunk the csv processing
-print('Creating dataframe from powerlifting csv...')
-df = pd.read_csv('../backend/downloads/openpowerlifting.csv')
-print('Dataframe created. Printing first 10 entries of open powerlifting csv...')
-print(df.head(10))
+print('Ingesting powerlifting data to DB...')
+requiredColumns=['Sex','Equipment','Age','AgeClass','Best3SquatKg','Best3BenchKg','Best3DeadliftKg','Place','Federation','Date']
+dateColumns=['Date']
+dataTypes={'Sex': 'string', 'Age': float, 'AgeClass': 'string', 'Best3SquatKg': float, 'Best3BenchKg': float, 'Best3DeadliftKg': float, 'Place': 'string', 'Federation': 'string'}
+# TODO - increase chunk size
+with pd.read_csv('../backend/downloads/openpowerlifting.csv', chunksize=100, usecols=requiredColumns, dtype=dataTypes, parse_dates=dateColumns) as reader:
+	for chunk in reader:
+		# TODO - insert data into table here
+		print(chunk)
+		# TODO - remove this break once done
+		break
+print('Ingestion complete.')
 
 print('Cleaning up downloaded and extracted files...')
 os.remove('../backend/downloads/openpowerlifting.csv')
