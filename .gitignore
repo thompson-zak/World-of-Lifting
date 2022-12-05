@@ -1,12 +1,13 @@
+#Downloaded data files
+/backend/downloads/
+
 #Python/Flask Ignores
 /backend/env/
-
 
 #Node.JS Ignores
 /frontend/.DS_Store
 /frontend/node_modules
 /frontend/dist
-
 
 # local env files
 /frontend/.env.local

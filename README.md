@@ -12,17 +12,17 @@ To begin this will only include powerlifting (i.e. squat, bench, deadlift) but I
 5. Enhance site to include odd lifts (exact lifts TBD)
 
 ### Running the website locally
-Important commands for each component
-
-Flask App:
-source env/bin/activate
-python app.py
-
-Vue App:
-npm run serve
-
-Postgres DB:
-sudo -i -u lifting
-psql
-<--DB Creation -->
-psql -U [username] -d [database] -a -f ./world-of-lifting/backend/psql/createPowerliftingTable.sql
+Important commands for each component  
+  
+Flask App:  
+source env/bin/activate  
+python app.py  
+  
+Vue App:  
+npm run serve  
+  
+Postgres DB:  
+sudo -i -u lifting  
+psql  
+<--DB Creation -->  
+psql -U [username] -d [database] -a -f ./world-of-lifting/backend/psql/createPowerliftingTable.sql  
