@@ -14,7 +14,7 @@ print(config)
 print('Starting download of open powerlifting data')
 startDownloadTime = time.time()
 urllib.request.urlretrieve('https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip', '../backend/downloads/openpowerlifting-latest.zip')
-print('Completed download of open powerlifting data in %s seconds', round(time.time() - startDownloadTime, 2))
+print('Completed download of open powerlifting data in {} seconds'.format(round(time.time() - startDownloadTime, 2)))
 
 zf = zipfile.ZipFile('../backend/downloads/openpowerlifting-latest.zip')
 for info in zf.infolist():
@@ -38,10 +38,10 @@ try:
 		for chunk in reader:
 			chunk.columns = [colName.lower() for colName in requiredColumns]
 			chunk.to_sql('powerlifting', engine, if_exists='append', index=False)
-	print('Ingestion complete. Finished in %s seconds', round(time.time() - startIngestionTime, 2))
+	print('Ingestion complete. Finished in {} seconds'.format(round(time.time() - startIngestionTime, 2)))
 except Exception as e:
 	print(e)
-	print('There was an issue. Ingestion did not complete successfully. Finished in %s seconds', round(time.time() - startIngestionTime, 2))
+	print('There was an issue. Ingestion did not complete successfully. Finished in {} seconds'.format(round(time.time() - startIngestionTime, 2)))
 
 print('Cleaning up downloaded and extracted files...')
 os.remove('../backend/downloads/openpowerlifting.csv')
