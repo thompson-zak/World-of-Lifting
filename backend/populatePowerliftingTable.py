@@ -25,7 +25,7 @@ for info in zf.infolist():
 		print('Extraction complete')
 
 print('Ingesting powerlifting data to DB...')
-requiredColumns=['Sex','Equipment','Age','AgeClass','Best3SquatKg','Best3BenchKg','Best3DeadliftKg','Place','Federation','Date']
+requiredColumns=['Sex','Equipment','Age','AgeClass','BodyweightKg','WeightClassKg','Best3SquatKg','Best3BenchKg','Best3DeadliftKg','Place','Federation','Date']
 dateColumns=['Date']
 dataTypes={'Sex': 'string', 'Age': float, 'AgeClass': 'string', 'Best3SquatKg': float, 'Best3BenchKg': float, 'Best3DeadliftKg': float, 'Place': 'string', 'Federation': 'string'}
 

@@ -4,6 +4,8 @@ CREATE TABLE powerlifting (
 	Equipment varchar(20) NOT NULL,
 	Age decimal,
 	AgeClass varchar(20),
+	BodyweightKg decimal,
+	WeightClassKg varchar(10),
 	Best3SquatKg decimal,
 	Best3BenchKg decimal,
 	Best3DeadliftKg decimal,
