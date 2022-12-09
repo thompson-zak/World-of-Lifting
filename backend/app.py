@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import powerliftingLogic
 
 
 # configuration
@@ -22,17 +23,10 @@ def ping_pong():
 def analyze_lifts():
     lift_data = request.get_json()
 
-    squat = lift_data.get('squat')
-    bench = lift_data.get('bench')
-    deadlift = lift_data.get('deadlift')
-    units = lift_data.get('units')
+    analysis = powerliftingLogic.analyze_powerlifting(lift_data)
 
     response = {
         'status': 'Success',
-        'squat': squat,
-        'bench': bench,
-        'deadlift': deadlift,
-        'units': units
     }
 
     return jsonify(response)

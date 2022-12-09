@@ -6,6 +6,7 @@
 
 #Python/Flask Ignores
 /backend/env/
+/backend/__pycache__/
 
 #Node.JS Ignores
 /frontend/.DS_Store

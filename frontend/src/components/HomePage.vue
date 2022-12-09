@@ -17,7 +17,7 @@
             <input type="text" id="deadlift" name="deadlift">
           </label>
           <br><br>
-          <p>What units are your lifts in?</p>
+          <p>Lift Units</p>
           <label for="lbs">lbs
             <input type="radio" id="lbs" name="lift_units">
           </label>
@@ -25,9 +25,28 @@
           <label for="kgs">kgs
             <input type="radio" id="kgs" name="lift_units">
           </label>
+          <p>Personal Information</p>
+          <label for="age">Age:
+            <input type="text" id="age" name="age">
+          </label>
+          <label for="weight">Bodyweight:
+            <input type="text" id="weight" name="weight">
+          </label>
+          <p>Bodyweight Units</p>
+          <label for="lbs">lbs
+            <input type="radio" id="lbs" name="bodyweight_units">
+          </label>
+          <br>
+          <label for="kgs">kgs
+            <input type="radio" id="kgs" name="bodyweight_units">
+          </label>
         </form>
         <hr><br><br>
         <button type="button" class="btn btn-success btn-sm">Analyze Lifts!</button>
+        <hr><br><br>
+        <div class="results">
+          <p id="results_text"></p>
+        </div>
       </div>
     </div>
   </div>

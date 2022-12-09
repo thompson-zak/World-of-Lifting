@@ -4,12 +4,8 @@ import re
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
-import yaml
 import time
 import urllib.request
-
-config = yaml.safe_load(open("./config.yml"))
-print(config)
 
 print('Starting download of open powerlifting data')
 startDownloadTime = time.time()
@@ -29,7 +25,7 @@ requiredColumns=['Sex','Equipment','Age','AgeClass','BodyweightKg','WeightClassK
 dateColumns=['Date']
 dataTypes={'Sex': 'string', 'Age': float, 'AgeClass': 'string', 'Best3SquatKg': float, 'Best3BenchKg': float, 'Best3DeadliftKg': float, 'Place': 'string', 'Federation': 'string'}
 
-engine = create_engine(config['database']['connection']['string'])
+engine = databaseUtilities.getDatabaseConnection()
 startIngestionTime = time.time()
 
 try:

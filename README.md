@@ -24,5 +24,7 @@ npm run serve
 Postgres DB:  
 sudo -i -u lifting  
 psql  
-<--DB Creation -->  
-psql -U [username] -d [database] -a -f ./world-of-lifting/backend/psql/createPowerliftingTable.sql  
+<--Start DB Service-->  
+sudo systemctl start postgresql.service  
+<--DB Creation-->  
+psql -U [username] -d [database] -a -f [db creation sql script]  
