@@ -25,7 +25,7 @@ requiredColumns=['Sex','Equipment','Age','AgeClass','BodyweightKg','WeightClassK
 dateColumns=['Date']
 dataTypes={'Sex': 'string', 'Age': float, 'AgeClass': 'string', 'Best3SquatKg': float, 'Best3BenchKg': float, 'Best3DeadliftKg': float, 'Place': 'string', 'Federation': 'string'}
 
-engine = databaseUtilities.getDatabaseConnection()
+engine = dbUtils.getDatabaseConnection()
 startIngestionTime = time.time()
 
 try:
