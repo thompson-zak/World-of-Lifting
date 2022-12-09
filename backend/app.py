@@ -23,10 +23,11 @@ def ping_pong():
 def analyze_lifts():
     lift_data = request.get_json()
 
-    powerliftingLogic.analyze_powerlifting(lift_data)
+    data = powerliftingLogic.analyze_powerlifting(lift_data)
 
     response = {
-        'status': 'Success'
+        'status': 'Success',
+        'data': data
     }
 
     return jsonify(response)

@@ -2,6 +2,11 @@ import database.dbUtils as dbUtils
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 import pandas as pd
+from scipy import stats
+
+SQUAT_COL = 'best3squatkg'
+BENCH_COL = 'best3benchkg'
+DEADLIFT_COL = 'best3deadliftkg'
 
 def analyze_powerlifting(lift_data):
     #Grab all user provided data that is relevant to powerlifting analysis
@@ -9,6 +14,11 @@ def analyze_powerlifting(lift_data):
     bench = lift_data.get('bench')
     deadlift = lift_data.get('deadlift')
     lift_units = lift_data.get('liftUnits')
+
+    if lift_units == 'lbs':
+        squat = convert_to_kg(squat)
+        bench = convert_to_kg(bench)
+        deadlift = convert_to_kg(deadlift)
 
     bw = lift_data.get('bodyweight')
     bw_units = lift_data.get('bodyweightUnits')
@@ -30,8 +40,8 @@ def analyze_powerlifting(lift_data):
     age_condition = '({} OR {})'.format(age_clause, age_class_clause)
 
     #Allow for range of 2.5kg up and down for bodyweight
-    if(bw_units == 'lbs'):
-        bw = bw / 2.2049
+    if bw_units == 'lbs':
+        bw = convert_to_kg(bw)
     bw_clause = '(bodyweightKg BETWEEN {} AND {})'.format((bw - 2.5), (bw + 2.5))
     #TODO - eventually allow for BW class to include more data, however it will be more imprecise. Maybe allow user to choose accuracy level?
 
@@ -41,9 +51,16 @@ def analyze_powerlifting(lift_data):
     query_conditions = '{AGE} AND {BODYWEIGHT} AND {SEX} AND {EQUIPMENT}'.format(AGE=age_condition, BODYWEIGHT=bw_clause, SEX=sex_clause, EQUIPMENT=equipped_clause)
     query = '{SELECT} {CONDITION}'.format(SELECT=query_select, CONDITION=query_conditions)
     df = pd.read_sql(query, engine)
-    print('This query returned {} results. Here are a few records:'.format(len(df.index)))
-    print(df.head(15))
+    
+    records_count = len(df.index)
+    squat_percentile = round(stats.percentileofscore(df[SQUAT_COL], squat, nan_policy='omit'), 2)
+    bench_percentile = round(stats.percentileofscore(df[BENCH_COL], bench, nan_policy='omit'), 2)
+    deadlift_percentile = round(stats.percentileofscore(df[DEADLIFT_COL], deadlift, nan_policy='omit'), 2)
 
+    return {'count': records_count, 'squat_percentile': squat_percentile, 'bench_percentile': bench_percentile, 'deadlift_percentile': deadlift_percentile}
+
+def convert_to_kg(weight):
+    return weight / 2.2049
 
 def get_age_class(age):
     if age >= 5 and age <=12:
