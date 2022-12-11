@@ -98,6 +98,22 @@
 
           <br>
 
+          <b-form-group id="sex-group" label="Gender?">
+            <b-form-radio-group
+              id="sex-radio"
+              v-model="selectedSex"
+              :options="sexOptions"
+            ></b-form-radio-group>
+          </b-form-group>
+
+          <b-form-group id="equipped-group" label="Raw or Equipped?">
+            <b-form-radio-group
+              id="equipped-radio"
+              v-model="selectedEquipped"
+              :options="equippedOptions"
+            ></b-form-radio-group>
+          </b-form-group>
+
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
@@ -126,6 +142,8 @@ export default {
         age: null,
         bodyweight: null,
         bodyweightUnits: 'lbs',
+        sex: 'M',
+        equipped: 'equipped',
       },
       show: false,
       result: null,
@@ -139,6 +157,17 @@ export default {
         { text: 'Pounds', value: 'lbs' },
         { text: 'Kilos', value: 'kgs' },
       ],
+      selectedSex: 'M',
+      sexOptions: [
+        { text: 'Male', value: 'M' },
+        { text: 'Female', value: 'F' },
+        { text: 'Non-Binary', value: 'Mx' },
+      ],
+      selectedEquipped: 'raw',
+      equippedOptions: [
+        { text: 'Raw', value: 'raw' },
+        { text: 'Equipped', value: 'equipped' },
+      ],
     };
   },
   methods: {
@@ -146,6 +175,7 @@ export default {
       event.preventDefault();
 
       const path = 'http://localhost:5000/analyze-lifts';
+      const equippedBool = this.form.equipped === 'equipped';
       const requestBody = {
         squat: Number(this.form.squat),
         bench: Number(this.form.bench),
@@ -154,6 +184,8 @@ export default {
         age: Number(this.form.age),
         bodyweight: Number(this.form.bodyweight),
         bodyweightUnits: this.form.bodyweightUnits,
+        sex: this.form.sex,
+        equipped: equippedBool,
       };
       console.log(requestBody);
       axios.post(path, requestBody)
