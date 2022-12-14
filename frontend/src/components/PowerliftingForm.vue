@@ -148,12 +148,6 @@
                   <b-button type="submit" variant="primary">Submit</b-button>
                   <b-button type="reset" variant="danger">Reset</b-button>
                 </b-form>
-
-                <b-card class="mt-3" header="Your Results!" v-if="show">
-                  <pre class="m-0">{{ result }}</pre>
-                </b-card>
-
-                <br><br>
             </div>
         </div>
     </b-card>
@@ -177,7 +171,6 @@ export default {
         equipped: 'equipped',
       },
       show: false,
-      result: null,
       selectedLiftUnits: 'lbs',
       liftOptions: [
         { text: 'Pounds', value: 'lbs' },
@@ -221,7 +214,7 @@ export default {
       console.log(requestBody);
       axios.post(path, requestBody)
         .then((res) => {
-          this.result = res.data;
+          this.$emit('analyzeLiftsData', res.data);
         })
         .catch((error) => {
           // eslint-disable-next-line
@@ -233,7 +226,6 @@ export default {
     onReset(event) {
       event.preventDefault();
       // Reset our form values
-      this.result = null;
       this.show = false;
     },
   },
