@@ -1,12 +1,11 @@
 <template>
+  <b-navbar type="dark" variant="light">
+        <b-navbar-brand href="#">World of Lifting</b-navbar-brand>
+  </b-navbar>
   <b-card>
     <div class="container">
       <div>
-
-        <h1>Compare Your Lifts!</h1>
-
-        <hr><br><br>
-
+        <br>
         <b-form @submit="onSubmit" @reset="onReset">
 
           <b-form-row>
@@ -153,11 +152,11 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
 
-        <hr><br><br>
-
-        <b-card class="mt-3" header="Form Data Result" v-if="show">
+        <b-card class="mt-3" header="Your Results!" v-if="show">
           <pre class="m-0">{{ result }}</pre>
-      </b-card>
+        </b-card>
+
+        <br><br>
       </div>
     </div>
   </b-card>
