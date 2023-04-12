@@ -65,9 +65,9 @@ def analyze_powerlifting(lift_data):
     count = df.count()
 
     return {
-        'squat': {'squat_percentile': squat_percentile, 'squat_count': int(count[SQUAT_COL]), 'squat_mean': round(squatCol.mean(),2), 'squat_st_dev': round(squatCol.std(),2)},
-        'bench': {'bench_percentile': bench_percentile, 'bench_count': int(count[BENCH_COL]), 'bench_mean': round(benchCol.mean(),2), 'bench_st_dev': round(benchCol.std(),2)},
-        'deadlift': {'deadlift_percentile': deadlift_percentile, 'deadlift_count': int(count[DEADLIFT_COL]), 'deadlift_mean': round(deadliftCol.mean(),2), 'deadlift_st_dev': round(deadliftCol.std(),2)}
+        'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'mean': round(squatCol.mean(),2), 'st_dev': round(squatCol.std(),2)},
+        'bench': {'percentile': bench_percentile, 'count': int(count[BENCH_COL]), 'mean': round(benchCol.mean(),2), 'st_dev': round(benchCol.std(),2)},
+        'deadlift': {'percentile': deadlift_percentile, 'count': int(count[DEADLIFT_COL]), 'mean': round(deadliftCol.mean(),2), 'st_dev': round(deadliftCol.std(),2)}
     }
 
 def convert_to_kg(weight):

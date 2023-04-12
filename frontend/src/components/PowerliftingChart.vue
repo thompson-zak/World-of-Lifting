@@ -1,5 +1,5 @@
 <template>
-  <Line :data="data" :options="options" />
+  <Line :data="chartData" :options="chartOptions" />
 </template>
 
 <script>
@@ -26,9 +26,21 @@ ChartJS.register(
 );
 
 export default {
+  name: 'PowerliftingChart',
+  props: ['chartData'],
   components: {
     Line,
   },
-  data() {},
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        tooltips: {
+          intersect: false,
+        },
+      },
+    };
+  },
 };
 </script>

@@ -157,6 +157,7 @@
 import axios from 'axios';
 
 export default {
+  name: 'PowerliftingForm',
   data() {
     return {
       form: {
@@ -214,7 +215,6 @@ export default {
       console.log(requestBody);
       axios.post(path, requestBody)
         .then((res) => {
-          console.log(res.data);
           this.$emit('analyzeLiftsData', res.data);
         })
         .catch((error) => {
