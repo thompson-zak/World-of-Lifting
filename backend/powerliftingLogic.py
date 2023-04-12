@@ -51,13 +51,24 @@ def analyze_powerlifting(lift_data):
     query_conditions = '{AGE} AND {BODYWEIGHT} AND {SEX} AND {EQUIPMENT}'.format(AGE=age_condition, BODYWEIGHT=bw_clause, SEX=sex_clause, EQUIPMENT=equipped_clause)
     query = '{SELECT} {CONDITION}'.format(SELECT=query_select, CONDITION=query_conditions)
     df = pd.read_sql(query, engine)
-    
-    records_count = len(df.index)
-    squat_percentile = round(stats.percentileofscore(df[SQUAT_COL], squat, nan_policy='omit'), 2)
-    bench_percentile = round(stats.percentileofscore(df[BENCH_COL], bench, nan_policy='omit'), 2)
-    deadlift_percentile = round(stats.percentileofscore(df[DEADLIFT_COL], deadlift, nan_policy='omit'), 2)
 
-    return {'count': records_count, 'squat_percentile': squat_percentile, 'bench_percentile': bench_percentile, 'deadlift_percentile': deadlift_percentile}
+    # Calculate data required for plotting lift performance
+
+    squatCol = df[SQUAT_COL]
+    benchCol = df[BENCH_COL]
+    deadliftCol = df[DEADLIFT_COL]
+
+    squat_percentile = round(stats.percentileofscore(squatCol, squat, nan_policy='omit'), 2)
+    bench_percentile = round(stats.percentileofscore(benchCol, bench, nan_policy='omit'), 2)
+    deadlift_percentile = round(stats.percentileofscore(deadliftCol, deadlift, nan_policy='omit'), 2)
+    
+    count = df.count()
+
+    return {
+        'squat_percentile': squat_percentile, 'squat_count': int(count[SQUAT_COL]), 'squat_mean': round(squatCol.mean(),2), 'squat_st_dev': round(squatCol.std(),2),
+        'bench_percentile': bench_percentile, 'bench_count': int(count[BENCH_COL]), 'bench_mean': round(benchCol.mean(),2), 'bench_st_dev': round(benchCol.std(),2),
+        'deadlift_percentile': deadlift_percentile, 'deadlift_count': int(count[DEADLIFT_COL]), 'deadlift_mean': round(deadliftCol.mean(),2), 'deadlift_st_dev': round(deadliftCol.std(),2)
+    }
 
 def convert_to_kg(weight):
     return weight / 2.2049

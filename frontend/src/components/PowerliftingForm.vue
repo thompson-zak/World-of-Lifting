@@ -214,6 +214,7 @@ export default {
       console.log(requestBody);
       axios.post(path, requestBody)
         .then((res) => {
+          console.log(res.data);
           this.$emit('analyzeLiftsData', res.data);
         })
         .catch((error) => {
