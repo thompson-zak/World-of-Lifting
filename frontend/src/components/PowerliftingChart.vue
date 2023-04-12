@@ -1,34 +1,34 @@
 <template>
-  <Bar v-if="loaded" :chartData="chartData" :options="chartOptions" />
+  <Line :data="data" :options="options" />
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs';
 import {
-  Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
 } from 'chart.js';
+import { Line } from 'vue-chartjs';
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 export default {
-  name: 'BarChart',
-  components: { Bar },
-  props: {
-    loaded: {
-      type: Boolean,
-      required: true,
-    },
-    chartData: {
-      type: Object,
-      required: true,
-    },
-    chartOptions: {
-      type: Object,
-      default: () => {},
-    },
+  components: {
+    Line,
   },
-  data() {
-    return {};
-  },
+  data() {},
 };
 </script>

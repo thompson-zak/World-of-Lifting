@@ -2,34 +2,31 @@
   <b-navbar type="dark" variant="light">
         <b-navbar-brand href="#">World of Lifting</b-navbar-brand>
   </b-navbar>
-  <PowerliftingForm @analyzeLiftsData="onFormSubmit"/>
-  <PowerliftingChart
-    loaded='{{this.loaded}}'
-    chartData='{{this.chartData}}'
-    chartOptions='{{this.chartOptions}}' />
+  <PowerliftingForm @analyzeLiftsData="onFormSubmit" />
+  <PowerliftingResults :liftData="liftData" />
 </template>
 
 <script>
 import PowerliftingForm from './PowerliftingForm.vue';
-import PowerliftingChart from './PowerliftingChart.vue';
+import PowerliftingResults from './PowerliftingResults.vue';
 
 export default {
   components: {
     PowerliftingForm,
-    PowerliftingChart,
-  },
-  methods: {
-    onFormSubmit(data) {
-      // This is where you will update everything with emitted data
-      console.log(data);
-    },
+    PowerliftingResults,
   },
   data() {
     return {
       loaded: false,
-      chartData: null,
-      chartOptions: null,
+      liftData: {},
     };
+  },
+  methods: {
+    onFormSubmit(data) {
+      // This is where you will update everything with emitted data
+      this.liftData = data;
+      console.log(data);
+    },
   },
 };
 </script>
