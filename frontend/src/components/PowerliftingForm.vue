@@ -149,6 +149,13 @@
                   <b-button type="reset" variant="danger">Reset</b-button>
                 </b-form>
             </div>
+            <div>
+              <div v-if="requestLoading">
+                <b-spinner label="Spinning"></b-spinner>
+              </div>
+              <!-- Display nothing if request is not currently in progress -->
+              <div v-else></div>
+            </div>
         </div>
     </b-card>
 </template>
@@ -193,6 +200,7 @@ export default {
         { text: 'Raw', value: 'raw' },
         { text: 'Equipped', value: 'equipped' },
       ],
+      requestLoading: false,
     };
   },
   methods: {
@@ -212,7 +220,8 @@ export default {
         sex: this.form.sex,
         equipped: equippedBool,
       };
-      console.log(requestBody);
+
+      this.loading = true;
       axios.post(path, requestBody)
         .then((res) => {
           this.$emit('analyzeLiftsData', res.data);
@@ -220,6 +229,9 @@ export default {
         .catch((error) => {
           // eslint-disable-next-line
           console.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
 
       this.show = true;
