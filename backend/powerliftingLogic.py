@@ -2,6 +2,7 @@ import database.dbUtils as dbUtils
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 import pandas as pd
+import numpy as np
 from scipy import stats
 
 SQUAT_COL = 'best3squatkg'
@@ -64,11 +65,28 @@ def analyze_powerlifting(lift_data):
     
     count = df.count()
 
+    # TODO - add X axis labels
+    # TODO - convert to lbs if set by user
+
     return {
-        'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'mean': round(squatCol.mean(),2), 'st_dev': round(squatCol.std(),2)},
-        'bench': {'percentile': bench_percentile, 'count': int(count[BENCH_COL]), 'mean': round(benchCol.mean(),2), 'st_dev': round(benchCol.std(),2)},
-        'deadlift': {'percentile': deadlift_percentile, 'count': int(count[DEADLIFT_COL]), 'mean': round(deadliftCol.mean(),2), 'st_dev': round(deadliftCol.std(),2)}
+        'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'coordinates': get_coordinates_list(round(squatCol.mean(),2), round(squatCol.std(),2))},
+        'bench': {'percentile': bench_percentile, 'count': int(count[BENCH_COL]), 'coordinates': get_coordinates_list(round(benchCol.mean(),2), round(benchCol.std(),2))},
+        'deadlift': {'percentile': deadlift_percentile, 'count': int(count[DEADLIFT_COL]), 'coordinates': get_coordinates_list(round(deadliftCol.mean(),2), round(deadliftCol.std(),2))}
     }
+
+def get_coordinates_list(mean, deviation):
+    x_data = np.arange(mean - (3 * deviation), mean + (3 * deviation), 1)
+    y_data = stats.norm.pdf(x_data, mean, deviation)
+
+    print(len(x_data))
+    print(len(y_data))
+    print(mean)
+    print(deviation)
+    print(mean - (3 * deviation))
+    print(mean + (3 * deviation))
+
+    # Naive merge, assuming lists of same length
+    return [{'x': x_data[i], 'y': y_data[i]} for i in range(0, len(x_data))]
 
 def convert_to_kg(weight):
     return weight / 2.2049

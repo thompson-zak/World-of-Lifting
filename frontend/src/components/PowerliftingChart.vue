@@ -1,5 +1,5 @@
 <template>
-  <Line :data="chartData" :options="chartOptions" />
+  <Scatter :data="chartData" :options="chartOptions" />
 </template>
 
 <script>
@@ -13,7 +13,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'vue-chartjs';
+import { Scatter } from 'vue-chartjs';
 
 ChartJS.register(
   CategoryScale,
@@ -29,7 +29,7 @@ export default {
   name: 'PowerliftingChart',
   props: ['chartData'],
   components: {
-    Line,
+    Scatter,
   },
   data() {
     return {
@@ -39,6 +39,7 @@ export default {
         tooltips: {
           intersect: false,
         },
+        showLine: true,
       },
     };
   },

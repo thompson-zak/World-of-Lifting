@@ -30,8 +30,6 @@ def analyze_lifts():
         'data': data
     }
 
-    print(response)
-
     return jsonify(response)
 
 

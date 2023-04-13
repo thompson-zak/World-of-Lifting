@@ -25,7 +25,6 @@ export default {
   methods: {
     onFormSubmit(data) {
       // This is where you will update everything with emitted data
-      console.log(data);
       this.liftData = data;
       this.shouldLoad = true;
     },
