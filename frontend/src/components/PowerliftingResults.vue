@@ -1,8 +1,12 @@
 <template>
   <div class="w-100 p-3">
     <PowerliftingChart :chartData="squatChart" />
-    <!-- <PowerliftingChart :chartData="benchData" />
-    <PowerliftingChart :chartData="deadliftData" /> -->
+  </div>
+  <div class="w-100 p-3">
+    <PowerliftingChart :chartData="benchChart" />
+  </div>
+  <div class="w-100 p-3">
+    <PowerliftingChart :chartData="deadliftChart" />
   </div>
 </template>
 
@@ -16,21 +20,41 @@ export default {
     PowerliftingChart,
   },
   data() {
-    // Create all objects for squat chart
-    const squatCoordinates = this.liftData.data.squat.coordinates;
-
+    // Create all objects for SBD charts
     const squatChart = {
       datasets: [
         {
           label: 'Squat Performance',
           backgroundColor: '#f87979',
-          data: squatCoordinates,
+          data: this.liftData.data.squat.coordinates,
+        },
+      ],
+    };
+
+    const benchChart = {
+      datasets: [
+        {
+          label: 'Bench Performance',
+          backgroundColor: '#63c45e',
+          data: this.liftData.data.bench.coordinates,
+        },
+      ],
+    };
+
+    const deadliftChart = {
+      datasets: [
+        {
+          label: 'Deadlift Performance',
+          backgroundColor: '#152bd1',
+          data: this.liftData.data.deadlift.coordinates,
         },
       ],
     };
 
     return {
       squatChart,
+      benchChart,
+      deadliftChart,
     };
   },
 };

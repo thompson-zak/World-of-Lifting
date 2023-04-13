@@ -55,6 +55,12 @@ def analyze_powerlifting(lift_data):
 
     # Calculate data required for plotting lift performance
 
+    # Convert all relevant kg columns into lbs if specified by user
+    if lift_units == 'lbs':
+        df[SQUAT_COL] *= 2.2049
+        df[BENCH_COL] *= 2.2049
+        df[DEADLIFT_COL] *= 2.2049
+
     squatCol = df[SQUAT_COL]
     benchCol = df[BENCH_COL]
     deadliftCol = df[DEADLIFT_COL]
@@ -66,7 +72,6 @@ def analyze_powerlifting(lift_data):
     count = df.count()
 
     # TODO - add X axis labels
-    # TODO - convert to lbs if set by user
 
     return {
         'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'coordinates': get_coordinates_list(round(squatCol.mean(),2), round(squatCol.std(),2))},
