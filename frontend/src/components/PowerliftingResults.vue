@@ -1,13 +1,33 @@
 <template>
+  <h2>Your Results!</h2>
+
   <div class="w-100 p-3">
     <PowerliftingChart :chartData="squatChart" />
   </div>
+  <p>
+    Your squat placed in the {{liftData.data.squat.percentile}} percentile
+     for your weight class out of {{liftData.data.squat.count}} competing lifters
+  </p>
+
+  <hr>
+
   <div class="w-100 p-3">
     <PowerliftingChart :chartData="benchChart" />
   </div>
+  <p>
+    Your bench placed in the {{liftData.data.bench.percentile}} percentile
+     for your weight class out of {{liftData.data.bench.count}} competing lifters
+  </p>
+
+  <hr>
+
   <div class="w-100 p-3">
     <PowerliftingChart :chartData="deadliftChart" />
   </div>
+  <p>
+    Your deadlift placed in the {{liftData.data.deadlift.percentile}} percentile
+     for your weight class out of {{liftData.data.deadlift.count}} competing lifters
+  </p>
 </template>
 
 <script>

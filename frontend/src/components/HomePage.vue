@@ -3,7 +3,7 @@
         <b-navbar-brand href="#">World of Lifting</b-navbar-brand>
         <b-button variant="outline-dark" @click="minimizeForm">{{formDisplayText}}</b-button>
   </b-navbar>
-  <PowerliftingForm @analyzeLiftsData="onFormSubmit" v-if="shouldDisplayForm"/>
+  <PowerliftingForm @analyzeLiftsData="onFormSubmit" v-show="shouldDisplayForm"/>
   <PowerliftingResults :liftData="liftData" v-if="shouldLoadResults"/>
 </template>
 
@@ -31,7 +31,6 @@ export default {
       this.liftData = data;
       this.shouldLoadResults = true;
     },
-    // Minimizing works visually but the values input by user are lost. TODO save and display values even on minimize
     minimizeForm() {
       this.shouldDisplayForm = !this.shouldDisplayForm;
       if (this.formDisplayText === 'Minimize Form') {

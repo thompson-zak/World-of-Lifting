@@ -65,9 +65,9 @@ def analyze_powerlifting(lift_data):
     benchCol = df[BENCH_COL]
     deadliftCol = df[DEADLIFT_COL]
 
-    squat_percentile = round(stats.percentileofscore(squatCol, squat, nan_policy='omit'), 2)
-    bench_percentile = round(stats.percentileofscore(benchCol, bench, nan_policy='omit'), 2)
-    deadlift_percentile = round(stats.percentileofscore(deadliftCol, deadlift, nan_policy='omit'), 2)
+    squat_percentile = round(stats.percentileofscore(squatCol, squat, nan_policy='omit') * 100)
+    bench_percentile = round(stats.percentileofscore(benchCol, bench, nan_policy='omit') * 100)
+    deadlift_percentile = round(stats.percentileofscore(deadliftCol, deadlift, nan_policy='omit') * 100)
     
     count = df.count()
 
