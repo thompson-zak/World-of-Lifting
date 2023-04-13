@@ -1,9 +1,10 @@
 <template>
   <b-navbar type="dark" variant="light">
         <b-navbar-brand href="#">World of Lifting</b-navbar-brand>
+        <b-button variant="outline-dark" @click="minimizeForm">{{formDisplayText}}</b-button>
   </b-navbar>
-  <PowerliftingForm @analyzeLiftsData="onFormSubmit" />
-  <PowerliftingResults :liftData="liftData" v-if="shouldLoad"/>
+  <PowerliftingForm @analyzeLiftsData="onFormSubmit" v-if="shouldDisplayForm"/>
+  <PowerliftingResults :liftData="liftData" v-if="shouldLoadResults"/>
 </template>
 
 <script>
@@ -18,7 +19,9 @@ export default {
   },
   data() {
     return {
-      shouldLoad: false,
+      shouldLoadResults: false,
+      shouldDisplayForm: true,
+      formDisplayText: 'Minimize Form',
       liftData: {},
     };
   },
@@ -26,7 +29,16 @@ export default {
     onFormSubmit(data) {
       // This is where you will update everything with emitted data
       this.liftData = data;
-      this.shouldLoad = true;
+      this.shouldLoadResults = true;
+    },
+    // Minimizing works visually but the values input by user are lost. TODO save and display values even on minimize
+    minimizeForm() {
+      this.shouldDisplayForm = !this.shouldDisplayForm;
+      if (this.formDisplayText === 'Minimize Form') {
+        this.formDisplayText = 'Display Form';
+      } else {
+        this.formDisplayText = 'Minimize Form';
+      }
     },
   },
 };
