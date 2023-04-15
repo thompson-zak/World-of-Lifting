@@ -4,6 +4,7 @@ from sqlalchemy.sql import text
 import pandas as pd
 import numpy as np
 from scipy import stats
+import math
 
 SQUAT_COL = 'best3squatkg'
 BENCH_COL = 'best3benchkg'
@@ -55,46 +56,64 @@ def analyze_powerlifting(lift_data):
 
     # Calculate data required for plotting lift performance
 
-    # Convert all relevant kg columns into lbs if specified by user
+    # Convert all relevant kg values into lbs if specified by user
     if lift_units == 'lbs':
         df[SQUAT_COL] *= 2.2049
         df[BENCH_COL] *= 2.2049
         df[DEADLIFT_COL] *= 2.2049
+        squat = convert_to_lb(squat)
+        bench = convert_to_lb(bench)
+        deadlift = convert_to_lb(deadlift)
 
-    squatCol = df[SQUAT_COL]
-    benchCol = df[BENCH_COL]
-    deadliftCol = df[DEADLIFT_COL]
+    squat_col = df[SQUAT_COL]
+    bench_col = df[BENCH_COL]
+    deadlift_col = df[DEADLIFT_COL]
 
-    squat_percentile = round(stats.percentileofscore(squatCol, squat, nan_policy='omit') * 100)
-    bench_percentile = round(stats.percentileofscore(benchCol, bench, nan_policy='omit') * 100)
-    deadlift_percentile = round(stats.percentileofscore(deadliftCol, deadlift, nan_policy='omit') * 100)
+    squat_percentile = round(stats.percentileofscore(squat_col, squat, nan_policy='omit'))
+    bench_percentile = round(stats.percentileofscore(bench_col, bench, nan_policy='omit'))
+    deadlift_percentile = round(stats.percentileofscore(deadlift_col, deadlift, nan_policy='omit'))
     
     count = df.count()
 
     # TODO - add X axis labels
 
+    squat_coords, squat_highlight = get_coordinates_list(round(squat_col.mean(),2), round(squat_col.std(),2), squat)
+    bench_coords, bench_highlight = get_coordinates_list(round(bench_col.mean(),2), round(bench_col.std(),2), bench)
+    deadlift_coords, deadlift_highlight = get_coordinates_list(round(deadlift_col.mean(),2), round(deadlift_col.std(),2), deadlift)
+
     return {
-        'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'coordinates': get_coordinates_list(round(squatCol.mean(),2), round(squatCol.std(),2))},
-        'bench': {'percentile': bench_percentile, 'count': int(count[BENCH_COL]), 'coordinates': get_coordinates_list(round(benchCol.mean(),2), round(benchCol.std(),2))},
-        'deadlift': {'percentile': deadlift_percentile, 'count': int(count[DEADLIFT_COL]), 'coordinates': get_coordinates_list(round(deadliftCol.mean(),2), round(deadliftCol.std(),2))}
+        'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'coordinates': squat_coords, 'highlight': squat_highlight},
+        'bench': {'percentile': bench_percentile, 'count': int(count[BENCH_COL]), 'coordinates': bench_coords, 'highlight': bench_highlight},
+        'deadlift': {'percentile': deadlift_percentile, 'count': int(count[DEADLIFT_COL]), 'coordinates': deadlift_coords, 'highlight': deadlift_highlight}
     }
 
-def get_coordinates_list(mean, deviation):
+def get_coordinates_list(mean, deviation, lift):
     x_data = np.arange(mean - (3 * deviation), mean + (3 * deviation), 1)
     y_data = stats.norm.pdf(x_data, mean, deviation)
 
-    print(len(x_data))
-    print(len(y_data))
-    print(mean)
-    print(deviation)
-    print(mean - (3 * deviation))
-    print(mean + (3 * deviation))
+    highlight_index = find_nearest_index(x_data, lift)
+    highlight_x = x_data[highlight_index]
+    highlight_y = y_data[highlight_index]
+
+    print(lift)
+    print(highlight_x)
+    print(highlight_y)
 
     # Naive merge, assuming lists of same length
-    return [{'x': x_data[i], 'y': y_data[i]} for i in range(0, len(x_data))]
+    return [{'x': x_data[i], 'y': y_data[i]} for i in range(0, len(x_data))], {'x': int(highlight_x), 'y': int(highlight_y)}
+
+def find_nearest_index(array,value):
+    idx = np.searchsorted(array, value, side="left")
+    if idx > 0 and (idx == len(array) or math.fabs(value - array[idx-1]) < math.fabs(value - array[idx])):
+        return idx-1
+    else:
+        return idx
 
 def convert_to_kg(weight):
     return weight / 2.2049
+
+def convert_to_lb(weight):
+    return weight * 2.2049
 
 def get_age_class(age):
     if age >= 5 and age <=12:
