@@ -4,17 +4,29 @@
   </b-navbar>
   <PowerliftingHomePage v-if="displayPowerlifting" />
   <StrongmanHomePage v-if="displayStrongman" />
-  <div class="cotainer-fluid" v-if="displayHome">
-    <div class="row">
-      <div class="col">
-        <b-img src="@/assets/powerliftingBtn.jpg" style="height:100%" fluid-grow></b-img>
-      </div>
+  <b-container fluid v-if="displayHome">
+    <b-row>
+      <b-col class="homeCol">
+        <b-img
+          class="homeBtn"
+          src="@/assets/powerliftingBtn.jpg"
+          style="height:100%"
+          fluid-grow>
+        </b-img>
+        <h1 class="imageTextCenter">Powerlifting</h1>
+      </b-col>
 
-      <div class="col">
-        <b-img src="@/assets/strongmanBtn.jpg" fluid-grow></b-img>
-      </div>
-    </div>
-  </div>
+      <b-col class="homeCol">
+        <b-img
+          class="homeBtn"
+          src="@/assets/strongmanBtn.jpg"
+          style="height:100%"
+          fluid-grow>
+        </b-img>
+        <h1 class="imageTextCenter">Strongman</h1>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
