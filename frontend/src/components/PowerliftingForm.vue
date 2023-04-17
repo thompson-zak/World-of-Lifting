@@ -228,6 +228,7 @@ export default {
         })
         .catch((error) => {
           // eslint-disable-next-line
+          // TODO - update error handling
           console.error(error);
         })
         .finally(() => {

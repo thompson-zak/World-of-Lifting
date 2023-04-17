@@ -9,7 +9,7 @@
     />
   </div>
   <p>
-    Your squat placed in the {{liftData.data.squat.percentile}} percentile
+    Your squat is in the {{this.formatPercentile(liftData.data.squat.percentile)}} percentile
      for your weight class out of {{liftData.data.squat.count}} competing lifters
   </p>
 
@@ -22,7 +22,7 @@
     />
   </div>
   <p>
-    Your bench placed in the {{liftData.data.bench.percentile}} percentile
+    Your bench is in the {{this.formatPercentile(liftData.data.bench.percentile)}} percentile
      for your weight class out of {{liftData.data.bench.count}} competing lifters
   </p>
 
@@ -35,7 +35,7 @@
     />
   </div>
   <p>
-    Your deadlift placed in the {{liftData.data.deadlift.percentile}} percentile
+    Your deadlift is in the {{this.formatPercentile(liftData.data.deadlift.percentile)}} percentile
      for your weight class out of {{liftData.data.deadlift.count}} competing lifters
   </p>
 </template>
@@ -86,6 +86,35 @@ export default {
       benchChart,
       deadliftChart,
     };
+  },
+  methods: {
+    formatPercentile(percentile) {
+      let suffix = '';
+      switch (percentile % 10) {
+        case 0:
+          suffix = 'th';
+          break;
+        case 1:
+          suffix = 'st';
+          break;
+        case 2:
+          suffix = 'nd';
+          break;
+        case 3:
+          suffix = 'rd';
+          break;
+        case 4:
+        case 5:
+        case 6:
+        case 8:
+        case 9:
+          suffix = 'th';
+          break;
+        default:
+          suffix = '';
+      }
+      return percentile + suffix;
+    },
   },
 };
 </script>
