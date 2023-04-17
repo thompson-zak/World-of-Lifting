@@ -68,7 +68,7 @@
                   <br>
 
                   <b-form-row>
-                    <b-col cols="5"></b-col>
+                    <b-col cols="3"></b-col>
                     <b-col cols="2">
                       <b-form-group
                         id="age-group"
@@ -84,13 +84,6 @@
                         ></b-form-input>
                       </b-form-group>
                     </b-col>
-                    <b-col cols="5"></b-col>
-                  </b-form-row>
-
-                  <br>
-
-                  <b-form-row>
-                    <b-col cols="5"></b-col>
                     <b-col cols="2">
                       <b-form-group
                         id="bodyweight-group"
@@ -106,16 +99,20 @@
                         ></b-form-input>
                       </b-form-group>
                     </b-col>
-                    <b-col cols="5"></b-col>
+                    <b-col cols="2">
+                      <b-form-group
+                        id="bodyweight-units-group"
+                      >
+                        <b-form-radio-group
+                          id="bodyweight-units-radio"
+                          v-model="selectedBodyweightUnits"
+                          :options="bodyweightOptions"
+                          stacked
+                        ></b-form-radio-group>
+                      </b-form-group>
+                    </b-col>
+                    <b-col cols="3"></b-col>
                   </b-form-row>
-
-                  <b-form-group id="bodyweight-units-group">
-                    <b-form-radio-group
-                      id="bodyweight-units-radio"
-                      v-model="selectedBodyweightUnits"
-                      :options="bodyweightOptions"
-                    ></b-form-radio-group>
-                  </b-form-group>
 
                   <br>
 

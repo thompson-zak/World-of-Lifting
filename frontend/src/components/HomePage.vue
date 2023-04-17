@@ -1,44 +1,39 @@
 <template>
   <b-navbar type="dark" variant="light">
         <b-navbar-brand href="#">World of Lifting</b-navbar-brand>
-        <b-button variant="outline-dark" @click="minimizeForm">{{formDisplayText}}</b-button>
   </b-navbar>
-  <PowerliftingForm @analyzeLiftsData="onFormSubmit" v-show="shouldDisplayForm"/>
-  <PowerliftingResults :liftData="liftData" v-if="shouldLoadResults"/>
+  <PowerliftingHomePage v-if="displayPowerlifting" />
+  <StrongmanHomePage v-if="displayStrongman" />
+  <div class="cotainer-fluid" v-if="displayHome">
+    <div class="row">
+      <div class="col">
+        <b-img src="@/assets/powerliftingBtn.jpg" style="height:100%" fluid-grow></b-img>
+      </div>
+
+      <div class="col">
+        <b-img src="@/assets/strongmanBtn.jpg" fluid-grow></b-img>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import PowerliftingForm from './PowerliftingForm.vue';
-import PowerliftingResults from './PowerliftingResults.vue';
+import PowerliftingHomePage from './PowerliftingHomePage.vue';
+import StrongmanHomePage from './StrongmanHomePage.vue';
 
 export default {
   name: 'HomePage',
   components: {
-    PowerliftingForm,
-    PowerliftingResults,
+    PowerliftingHomePage,
+    StrongmanHomePage,
   },
+  methods: {},
   data() {
     return {
-      shouldLoadResults: false,
-      shouldDisplayForm: true,
-      formDisplayText: 'Minimize Form',
-      liftData: {},
+      displayPowerlifting: false,
+      displayStrongman: false,
+      displayHome: true,
     };
-  },
-  methods: {
-    onFormSubmit(data) {
-      // This is where you will update everything with emitted data
-      this.liftData = data;
-      this.shouldLoadResults = true;
-    },
-    minimizeForm() {
-      this.shouldDisplayForm = !this.shouldDisplayForm;
-      if (this.formDisplayText === 'Minimize Form') {
-        this.formDisplayText = 'Display Form';
-      } else {
-        this.formDisplayText = 'Minimize Form';
-      }
-    },
   },
 };
 </script>
