@@ -14,14 +14,21 @@
 
 body {
   height: 100%;
+  background-image: url("./assets/dumbbellBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 html {
   height: 100%;
 }
 
-.container-fluid {
-  height: 100%;
+.homeContainer {
+  background-color: white;
+  opacity: 90%;
+  margin-top: 5%;
+  padding: 3%;
+  border-radius: 20px;
 }
 
 .imageTextCenter {
@@ -35,10 +42,7 @@ html {
   text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
              0px 8px 13px rgba(0,0,0,0.1),
              0px 18px 23px rgba(0,0,0,0.1);
-}
-
-.row {
-  height: 100%;
+  pointer-events: none;
 }
 
 .homeCol {
@@ -47,7 +51,6 @@ html {
 }
 
 .homeBtn {
-  height: 100%;
   -webkit-filter: sepia(1);
   -webkit-filter: sepia(50%);
   -moz-filter: sepia(50%);
