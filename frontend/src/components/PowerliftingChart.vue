@@ -54,6 +54,14 @@ export default {
             },
           },
         },
+        scales: {
+          y: {
+            ticks: {
+              display: false,
+            },
+          },
+          // TODO - add 'lbs' or 'kgs' to x-axis labels
+        },
       },
     };
   },
