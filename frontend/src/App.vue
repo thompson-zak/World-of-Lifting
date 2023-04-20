@@ -14,15 +14,11 @@
 
 body {
   height: 100%;
-  background-color: white;
+  background-color: orange !important;
 }
 
 html {
   height: 100%;
-}
-
-.homeContainer {
-  background-color: white;
 }
 
 .homeRow {
@@ -60,6 +56,14 @@ html {
 
 #liftingNav {
   background-color: orange;
+}
+
+.powerliftingPageContainer {
+  height: 100%;
+}
+
+.powerliftingPageRow {
+  height: 100%;
 }
 
 </style>

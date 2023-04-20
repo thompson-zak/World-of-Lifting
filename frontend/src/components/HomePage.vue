@@ -1,7 +1,4 @@
 <template>
-  <b-navbar type="dark" id="liftingNav">
-        <b-navbar-brand href="#">World of Lifting</b-navbar-brand>
-  </b-navbar>
   <PowerliftingHomePage v-if="displayPowerlifting" />
   <StrongmanHomePage v-if="displayStrongman" />
   <!-- TODO - include stub Running Home Page here -->

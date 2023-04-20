@@ -1,6 +1,27 @@
 <template>
-  <PowerliftingForm @analyzeLiftsData="onFormSubmit" v-show="shouldDisplayForm"/>
-  <PowerliftingResults :liftData="liftData" v-if="shouldLoadResults"/>
+  <b-container fluid class="powerliftingPageContainer">
+
+    <b-row align-v="center" class="powerliftingPageRow">
+
+      <b-col cols=6>
+        <PowerliftingForm
+          @requestSubmitted="onFormSubmit"
+          @analyzeLiftsData="onFormReturn"
+          v-show="displayForm"
+        />
+      </b-col>
+
+      <b-col cols=6>
+        <PowerliftingResults :liftData="liftData" v-if="displayResults"/>
+
+        <div v-if="displaySpinner">
+          <b-spinner label="Spinning"></b-spinner>
+        </div>
+      </b-col>
+
+    </b-row>
+
+  </b-container>
 </template>
 
 <script>
@@ -15,16 +36,21 @@ export default {
   },
   data() {
     return {
-      shouldLoadResults: false,
-      shouldDisplayForm: true,
+      displayResults: false,
+      displayForm: true,
+      displaySpinner: false,
       liftData: {},
     };
   },
   methods: {
-    onFormSubmit(data) {
+    onFormSubmit() {
+      this.displaySpinner = true;
+    },
+    onFormReturn(data) {
       // This is where you will update everything with emitted data
       this.liftData = data;
-      this.shouldLoadResults = true;
+      this.displaySpinner = false;
+      this.displayResults = true;
     },
   },
 };

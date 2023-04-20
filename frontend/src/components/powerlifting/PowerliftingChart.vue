@@ -50,7 +50,7 @@ export default {
                 type: 'point',
                 xValue: this.highlight.x,
                 yValue: this.highlight.y,
-                backgroundColor: 'rgba(255, 99, 132, 0.25)',
+                backgroundColor: this.chartData.datasets[0].backgroundColor,
               },
             },
           },
