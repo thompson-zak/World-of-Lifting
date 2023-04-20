@@ -95,12 +95,8 @@ def get_coordinates_list(mean, deviation, lift):
     highlight_x = x_data[highlight_index]
     highlight_y = y_data[highlight_index]
 
-    print(lift)
-    print(highlight_x)
-    print(highlight_y)
-
     # Naive merge, assuming lists of same length
-    return [{'x': x_data[i], 'y': y_data[i]} for i in range(0, len(x_data))], {'x': int(highlight_x), 'y': int(highlight_y)}
+    return [{'x': x_data[i], 'y': y_data[i]} for i in range(0, len(x_data))], {'x': highlight_x, 'y': highlight_y}
 
 def find_nearest_index(array,value):
     idx = np.searchsorted(array, value, side="left")

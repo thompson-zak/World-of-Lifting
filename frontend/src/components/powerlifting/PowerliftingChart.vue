@@ -35,9 +35,6 @@ export default {
   },
   data() {
     const coords = this.chartData.datasets[0].data;
-    console.log(coords);
-    console.log(coords[0].x);
-    console.log(coords[coords.length - 1].x);
     return {
       chartOptions: {
         responsive: true,
