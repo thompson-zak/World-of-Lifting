@@ -4,10 +4,11 @@
   </b-navbar>
   <PowerliftingHomePage v-if="displayPowerlifting" />
   <StrongmanHomePage v-if="displayStrongman" />
+  <!-- TODO - include stub Running Home Page here -->
   <b-container fluid class="homeContainer" v-if="displayHome">
 
     <!-- Powerlifting -->
-    <b-row align-v="center" class="powerliftingRow homeRow">
+    <b-row align-v="center" class="powerliftingRow homeRow" v-on:click="onPowerliftingSelect">
 
       <b-col cols=1></b-col>
 
@@ -28,7 +29,7 @@
     </b-row>
 
     <!-- Strongman -->
-    <b-row align-v="center" class="strongmanRow homeRow">
+    <b-row align-v="center" class="strongmanRow homeRow" v-on:click="onOddLiftSelect">
 
       <b-col cols=4>
         <b-img fluid-grow src="@/assets/atlasStones/atlasStonesTransparent.png"></b-img>
@@ -49,7 +50,7 @@
     </b-row>
 
     <!-- Running -->
-    <b-row align-v="center" class="runningRow homeRow">
+    <b-row align-v="center" class="runningRow homeRow" v-on:click="onRunningSelect">
 
       <b-col cols=1></b-col>
 
@@ -82,7 +83,18 @@ export default {
     PowerliftingHomePage,
     StrongmanHomePage,
   },
-  methods: {},
+  methods: {
+    onPowerliftingSelect() {
+      this.displayHome = false;
+      this.displayPowerlifting = true;
+    },
+    onOddLiftSelect() {
+      alert('The odd lifts section is curently a WIP. Please come back later!');
+    },
+    onRunningSelect() {
+      alert('The running section is curently a WIP. Please come back later!');
+    },
+  },
   data() {
     return {
       displayPowerlifting: false,
