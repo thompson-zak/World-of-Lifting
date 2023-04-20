@@ -14,9 +14,7 @@
 
 body {
   height: 100%;
-  background-image: url("./assets/dumbbellBackground.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: white;
 }
 
 html {
@@ -25,47 +23,35 @@ html {
 
 .homeContainer {
   background-color: white;
-  opacity: 90%;
-  margin-top: 5%;
-  padding: 3%;
-  border-radius: 20px;
 }
 
-.imageTextCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: 900;
-  font-size: 36pt;
-  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-             0px 8px 13px rgba(0,0,0,0.1),
-             0px 18px 23px rgba(0,0,0,0.1);
-  pointer-events: none;
+.homeRow {
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-right: 5%;
+  padding-left: 5%;
 }
 
-.homeCol {
-  position: relative;
-  height: 100%;
+.homeTitle {
+  font-weight: 700;
+  font-size: 3em;
 }
 
-.homeBtn {
+.powerliftingRow {
+  background-color: orange;
+}
+
+.strongmanRow {
+  background-color: yellow;
+}
+
+.homeRow:hover {
   -webkit-filter: sepia(1);
   -webkit-filter: sepia(50%);
   -moz-filter: sepia(50%);
   -ms-filter: sepia(50%);
   -o-filter: sepia(50%);
   filter: sepia(50%);
-}
-
-.homeBtn:hover {
-  filter: none;
-  -webkit-filter: sepia(0);
-  -moz-filter: sepia(0);
-  -ms-filter: sepia(0);
-  -o-filter: sepia(0);
-  filter: sepia(0);
 }
 
 </style>

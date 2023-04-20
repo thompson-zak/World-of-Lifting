@@ -4,60 +4,50 @@
   </b-navbar>
   <PowerliftingHomePage v-if="displayPowerlifting" />
   <StrongmanHomePage v-if="displayStrongman" />
-  <b-container class="homeContainer" v-if="displayHome">
-    <b-row justify-content-center>
-      <b-col>
-        <h3>Pick which sport you'd like to see your performance in!</h3>
+  <b-container fluid class="homeContainer" v-if="displayHome">
+
+    <!-- Powerlifting -->
+    <b-row align-v="center" class="powerliftingRow homeRow">
+
+      <b-col cols=1></b-col>
+
+      <b-col cols=2>
+        <span class="homeTitle">Powerlifting</span>
+        <br>
+        <span class="homeDesc">Discover how you stack up compared to thousands of lifters!</span>
+        <br>
+        <span>&#8594;</span>
       </b-col>
+
+      <b-col cols=5></b-col>
+
+      <b-col cols=4>
+        <b-img fluid-grow src="@/assets/benchPress/benchPressTransparent.png"></b-img>
+      </b-col>
+
     </b-row>
 
-    <br>
+    <!-- Strongman -->
+    <b-row align-v="center" class="strongmanRow homeRow">
 
-    <b-row justify-content-center>
-      <b-col cols="1"></b-col>
-      <b-col cols="5">
-        <p>
-          Our powerlifting algorithm will let you know how you stack up
-           to the competition in the squat, bench, and deadlift!
-        </p>
+      <b-col cols=4>
+        <b-img fluid-grow src="@/assets/atlasStones/atlasStonesTransparent.png"></b-img>
       </b-col>
-      <b-col cols="5">
-        <p>
-          Our strongman analysis is currently a work in progress.
-           Come back later to see it in action!
-        </p>
+
+      <b-col cols=5></b-col>
+
+      <b-col cols=2>
+        <span class="homeTitle">Odd Lifts</span>
+        <br>
+        <span class="homeDesc">See how your results rank up next to the competition!</span>
+        <br>
+        <span>&#8592;</span>
       </b-col>
-      <b-col cols="1"></b-col>
+
+      <b-col cols=1></b-col>
+
     </b-row>
 
-    <br>
-
-    <!-- Row for selecting Powerlifting or Strongman stats -->
-    <b-row>
-      <b-col cols="1"></b-col>
-
-      <b-col class="homeCol" cols="5">
-        <b-img
-          class="homeBtn"
-          src="@/assets/powerliftingBtn.jpg"
-          style="height:100%"
-          fluid-grow>
-        </b-img>
-        <h1 class="imageTextCenter">Powerlifting</h1>
-      </b-col>
-
-      <b-col class="homeCol" cols="5">
-        <b-img
-          class="homeBtn"
-          src="@/assets/strongmanBtn.jpg"
-          style="height:100%"
-          fluid-grow>
-        </b-img>
-        <h1 class="imageTextCenter">Strongman</h1>
-      </b-col>
-
-      <b-col cols="1"></b-col>
-    </b-row>
   </b-container>
 </template>
 
