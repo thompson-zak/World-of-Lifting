@@ -34,6 +34,10 @@ export default {
     Scatter,
   },
   data() {
+    const coords = this.chartData.datasets[0].data;
+    console.log(coords);
+    console.log(coords[0].x);
+    console.log(coords[coords.length - 1].x);
     return {
       chartOptions: {
         responsive: true,
@@ -59,6 +63,10 @@ export default {
             ticks: {
               display: false,
             },
+          },
+          x: {
+            suggestedMin: coords[0].x,
+            suggestedMax: coords[coords.length - 1].x,
           },
           // TODO - add 'lbs' or 'kgs' to x-axis labels
         },

@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import PowerliftingHomePage from './PowerliftingHomePage.vue';
-import StrongmanHomePage from './StrongmanHomePage.vue';
+import PowerliftingHomePage from './powerlifting/PowerliftingHomePage.vue';
+import StrongmanHomePage from './odd_lifts/StrongmanHomePage.vue';
 
 export default {
   name: 'HomePage',
