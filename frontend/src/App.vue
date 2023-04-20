@@ -45,6 +45,10 @@ html {
   background-color: yellow;
 }
 
+.runningRow {
+  background-color: #E97F7F;
+}
+
 .homeRow:hover {
   -webkit-filter: sepia(1);
   -webkit-filter: sepia(50%);
@@ -52,6 +56,10 @@ html {
   -ms-filter: sepia(50%);
   -o-filter: sepia(50%);
   filter: sepia(50%);
+}
+
+#liftingNav {
+  background-color: orange;
 }
 
 </style>
