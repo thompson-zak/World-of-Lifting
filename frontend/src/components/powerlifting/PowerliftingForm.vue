@@ -1,4 +1,5 @@
 <template>
+    <h2>Powerlifting Analysis</h2>
     <b-form @submit="onSubmit">
 
       <b-form-row>
