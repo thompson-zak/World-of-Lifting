@@ -74,6 +74,7 @@ h2 {
   margin: 10px;
   font-size: 1.5em;
   font-weight: 700;
+  cursor: pointer;
 }
 
 </style>
