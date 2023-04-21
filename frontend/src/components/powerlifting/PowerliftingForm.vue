@@ -5,33 +5,33 @@
 
   <b-container>
     <b-row align-h="center">
-      <b-col cols=3></b-col>
+      <b-col cols=4></b-col>
 
-      <b-col cols=6>
+      <b-col cols=4>
 
-        <FormKit type="form" :actions="false">
+        <FormKit type="form" @submit="onSubmit"  :actions="false">
           <FormKit type="multi-step" tab-style="progress">
             <FormKit type="step" name="lifts">
               <FormKit
-                  id="squat"
+                  name="squat"
                   type="number"
                   label="Squat"
                   validation="required"
               />
               <FormKit
-                id="bench"
+                name="bench"
                 type="number"
                 label="Bench"
                 validation="required"
               />
               <FormKit
-                id="deadlift"
+                name="deadlift"
                 type="number"
                 label="Deadlift"
                 validation="required"
               />
               <FormKit
-                id="liftUnits"
+                name="liftUnits"
                 type="radio"
                 label="Units"
                 :options="['lbs', 'kg']"
@@ -41,20 +41,20 @@
 
             <FormKit type="step" name="liftClass">
               <FormKit
-                  id="equipped"
+                  name="equipped"
                   type="radio"
                   label="Equipped?"
                   :options="['Equipped', 'Raw']"
                   validation="required"
               />
               <FormKit
-                id="bodyweight"
+                name="bodyweight"
                 type="number"
                 label="Bodyweight"
                 validation="required"
               />
               <FormKit
-                id="bodyweightUnits"
+                name="bodyweightUnits"
                 type="radio"
                 label="Units"
                 :options="['lbs', 'kg']"
@@ -64,13 +64,13 @@
 
             <FormKit type="step" name="demographics">
               <FormKit
-                  id="age"
+                  name="age"
                   type="number"
                   label="Age"
                   validation="required"
               />
               <FormKit
-                id="gender"
+                name="gender"
                 type="radio"
                 label="Gender"
                 :options="['Male', 'Female', 'Non-Binary']"
@@ -86,7 +86,7 @@
         </FormKit>
       </b-col>
 
-      <b-col cols=3></b-col>
+      <b-col cols=4></b-col>
     </b-row>
   </b-container>
 </template>
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     onSubmit(formData, node) {
-      /* event.preventDefault();
+      /* 
       this.$emit('requestSubmitted', true);
 
       const path = 'http://localhost:5000/analyze-lifts';
