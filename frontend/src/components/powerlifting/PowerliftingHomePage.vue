@@ -3,7 +3,11 @@
 
     <b-row align-v="center" class="powerliftingPageRow" v-if="displayResults">
 
-      <b-col cols=12>
+      <b-col align-self="start" cols=1>
+        <HomeButton/>
+      </b-col>
+
+      <b-col cols=10>
         <PowerliftingResults :liftData="liftData"/>
 
         <div v-if="displaySpinner">
@@ -11,9 +15,17 @@
         </div>
       </b-col>
 
+      <b-col cols=1>
+        <HomeButton/>
+      </b-col>
+
     </b-row>
 
     <b-row align-v="center" class="powerliftingPageRow" v-else>
+
+      <b-col align-self="start" cols=1>
+        <HomeButton/>
+      </b-col>
 
       <b-col cols=12>
         <PowerliftingForm
@@ -23,6 +35,8 @@
         />
       </b-col>
 
+      <b-col cols=1></b-col>
+
     </b-row>
 
   </b-container>
@@ -31,12 +45,14 @@
 <script>
 import PowerliftingForm from './PowerliftingForm.vue';
 import PowerliftingResults from './PowerliftingResults.vue';
+import HomeButton from '../HomeButton.vue';
 
 export default {
   name: 'PowerliftingHomePage',
   components: {
     PowerliftingForm,
     PowerliftingResults,
+    HomeButton,
   },
   data() {
     return {
