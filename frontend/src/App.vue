@@ -66,4 +66,8 @@ html {
   height: 100%;
 }
 
+h2 {
+  font-weight: 800;
+}
+
 </style>

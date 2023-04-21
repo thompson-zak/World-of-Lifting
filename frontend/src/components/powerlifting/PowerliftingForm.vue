@@ -9,8 +9,8 @@
 
       <b-col cols=4>
 
-        <FormKit type="form" @submit="onSubmit"  :actions="false">
-          <FormKit type="multi-step" tab-style="progress">
+        <FormKit type="form" @submit="onSubmit" :actions="false" name="formTop">
+          <FormKit type="multi-step" tab-style="progress" name="formMultiStep">
             <FormKit type="step" name="lifts">
               <FormKit
                   name="squat"
@@ -98,29 +98,37 @@
 </style>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
   name: 'PowerliftingForm',
+  emits: ['requestSubmitted', 'analyzeLiftsData'],
   data() {
     return {};
   },
   methods: {
-    onSubmit(formData, node) {
-      /* 
+    onSubmit(formData) {
       this.$emit('requestSubmitted', true);
 
       const path = 'http://localhost:5000/analyze-lifts';
-      const equippedBool = this.form.equipped === 'equipped';
+      const equippedBool = formData.formMultiStep.liftClass.equipped === 'equipped';
+      const formGender = formData.formMultiStep.demographics.gender;
+      let gender = 'M';
+      if (formGender === 'Female') {
+        gender = 'F';
+      }
+      if (formGender === 'Non-Binary') {
+        gender = 'Mx';
+      }
       const requestBody = {
-        squat: Number(this.form.squat),
-        bench: Number(this.form.bench),
-        deadlift: Number(this.form.deadlift),
-        liftUnits: this.form.liftUnits,
-        age: Number(this.form.age),
-        bodyweight: Number(this.form.bodyweight),
-        bodyweightUnits: this.form.bodyweightUnits,
-        sex: this.form.sex,
+        squat: Number(formData.formMultiStep.lifts.squat),
+        bench: Number(formData.formMultiStep.lifts.bench),
+        deadlift: Number(formData.formMultiStep.lifts.deadlift),
+        liftUnits: formData.formMultiStep.lifts.liftUnits,
+        age: Number(formData.formMultiStep.demographics.age),
+        bodyweight: Number(formData.formMultiStep.liftClass.bodyweight),
+        bodyweightUnits: formData.formMultiStep.liftClass.bodyweightUnits,
+        sex: gender,
         equipped: equippedBool,
       };
 
@@ -133,10 +141,6 @@ export default {
           // TODO - update error handling
           console.error(error);
         });
-
-      this.show = true; */
-      console.log(formData);
-      console.log(node);
     },
   },
 };

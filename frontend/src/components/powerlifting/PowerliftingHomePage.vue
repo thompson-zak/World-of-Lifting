@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     onFormSubmit() {
+      this.displayResults = false;
       this.displaySpinner = true;
     },
     onFormReturn(data) {
