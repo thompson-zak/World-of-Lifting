@@ -35,6 +35,7 @@
                 type="radio"
                 label="Units"
                 :options="['lbs', 'kg']"
+                value="lbs"
                 validation="required"
               />
             </FormKit>
@@ -44,7 +45,8 @@
                   name="equipped"
                   type="radio"
                   label="Equipped?"
-                  :options="['Equipped', 'Raw']"
+                  :options="['Raw', 'Equipped']"
+                  value="Raw"
                   validation="required"
               />
               <FormKit
@@ -58,6 +60,7 @@
                 type="radio"
                 label="Units"
                 :options="['lbs', 'kg']"
+                value="lbs"
                 validation="required"
               />
             </FormKit>
@@ -74,6 +77,7 @@
                 type="radio"
                 label="Gender"
                 :options="['Male', 'Female', 'Non-Binary']"
+                value="Male"
                 validation="required"
               />
 
@@ -95,6 +99,12 @@
   .formkit-steps {
     background-color: white;
   }
+  /* Radio button styling */
+  li.formkit-option {
+    display: inline-block;
+    margin-right: 5px !important;
+    margin-left: 5px !important;
+  }
 </style>
 
 <script>
@@ -111,7 +121,7 @@ export default {
       this.$emit('requestSubmitted', true);
 
       const path = 'http://localhost:5000/analyze-lifts';
-      const equippedBool = formData.formMultiStep.liftClass.equipped === 'equipped';
+      const equippedBool = formData.formMultiStep.liftClass.equipped === 'Equipped';
       const formGender = formData.formMultiStep.demographics.gender;
       let gender = 'M';
       if (formGender === 'Female') {
