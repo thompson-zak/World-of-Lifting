@@ -1,8 +1,5 @@
 <template>
-  <PowerliftingHomePage v-if="displayPowerlifting" />
-  <StrongmanHomePage v-if="displayStrongman" />
-  <!-- TODO - include stub Running Home Page here -->
-  <b-container fluid class="homeContainer" v-if="displayHome">
+  <b-container fluid class="homeContainer">
 
     <!-- Powerlifting -->
     <b-row align-v="center" class="powerliftingRow homeRow" v-on:click="onPowerliftingSelect">
@@ -71,19 +68,11 @@
 </template>
 
 <script>
-import PowerliftingHomePage from './powerlifting/PowerliftingHomePage.vue';
-import StrongmanHomePage from './odd_lifts/StrongmanHomePage.vue';
-
 export default {
   name: 'HomePage',
-  components: {
-    PowerliftingHomePage,
-    StrongmanHomePage,
-  },
   methods: {
     onPowerliftingSelect() {
-      this.displayHome = false;
-      this.displayPowerlifting = true;
+      this.$router.push({ path: '/powerlifting' });
     },
     onOddLiftSelect() {
       alert('The odd lifts section is curently a WIP. Please come back later!');
@@ -92,12 +81,6 @@ export default {
       alert('The running section is curently a WIP. Please come back later!');
     },
   },
-  data() {
-    return {
-      displayPowerlifting: false,
-      displayStrongman: false,
-      displayHome: true,
-    };
-  },
+  data() {},
 };
 </script>

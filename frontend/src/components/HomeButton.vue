@@ -19,9 +19,7 @@ export default {
   name: 'HomeButton',
   methods: {
     returnHome() {
-      console.log('This should take you home!');
-      // Not ideal because this causes a hard reload
-      this.$router.go();
+      this.$router.push({ path: '/' });
     },
   },
 };
