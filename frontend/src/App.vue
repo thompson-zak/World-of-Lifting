@@ -70,4 +70,10 @@ h2 {
   font-weight: 800;
 }
 
+.navButton {
+  margin: 10px;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
 </style>

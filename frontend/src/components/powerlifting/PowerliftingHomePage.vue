@@ -3,8 +3,14 @@
 
     <b-row align-v="center" class="powerliftingPageRow" v-if="displayResults">
 
-      <b-col align-self="start" cols=1>
+      <b-col align-self="start" cols=1 style="text-align: left;">
         <HomeButton/>
+        <hr>
+        <div @click="returnForm" class="navButton">
+          <!-- Left arrow icon -->
+          <span>&#8592; </span>
+          <span> Input Form</span>
+        </div>
       </b-col>
 
       <b-col cols=10>
@@ -15,9 +21,7 @@
         </div>
       </b-col>
 
-      <b-col cols=1>
-        <HomeButton/>
-      </b-col>
+      <b-col cols=1></b-col>
 
     </b-row>
 
@@ -27,7 +31,7 @@
         <HomeButton/>
       </b-col>
 
-      <b-col cols=12>
+      <b-col cols=10>
         <PowerliftingForm
           @requestSubmitted="onFormSubmit"
           @analyzeLiftsData="onFormReturn"
@@ -72,6 +76,9 @@ export default {
       this.liftData = data;
       this.displaySpinner = false;
       this.displayResults = true;
+    },
+    returnForm() {
+      this.displayResults = false;
     },
   },
 };

@@ -1,18 +1,10 @@
 <template>
-  <div @click="returnHome" class="homeButton">
+  <div @click="returnHome" class="navButton">
     <!-- Left arrow icon -->
     <span>&#8592; </span>
     <span> Home Page</span>
   </div>
 </template>
-
-<style>
-  .homeButton {
-    margin: 10px;
-    font-size: 1.5em;
-    font-weight: 700;
-  }
-</style>
 
 <script>
 export default {
