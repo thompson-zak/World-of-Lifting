@@ -1,194 +1,113 @@
 <template>
-    <h2>Powerlifting Analysis</h2>
-    <b-form @submit="onSubmit">
+  <h2>Powerlifting Analysis</h2>
 
-      <b-form-row>
-        <b-col cols="3"></b-col>
-        <b-col cols="2">
-          <b-form-group
-            id="squat-group"
-            label="Squat:"
-            label-for="squat-input"
-          >
-            <b-form-input
-              id="squat-input"
-              v-model="form.squat"
-              type="text"
-              placeholder="Enter squat here"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
+  <br>
 
-        <b-col cols="2">
-          <b-form-group
-            id="bench-group"
-            label="Bench:"
-            label-for="bench-input"
-          >
-            <b-form-input
-              id="bench-input"
-              v-model="form.bench"
-              type="text"
-              placeholder="Enter bench press here"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
+  <b-container>
+    <b-row align-h="center">
+      <b-col cols=3></b-col>
 
-        <b-col cols="2">
-          <b-form-group
-            id="deadlift-group"
-            label="Deadlift:"
-            label-for="deadlift-input"
-          >
-            <b-form-input
-              id="deadlift-input"
-              v-model="form.deadlift"
-              type="text"
-              placeholder="Enter deadlift here"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col cols="3"></b-col>
-      </b-form-row>
+      <b-col cols=6>
 
-      <b-form-group id="lift-units-group">
-        <b-form-radio-group
-          id="lift-units-radio"
-          v-model="selectedLiftUnits"
-          :options="liftOptions"
-        ></b-form-radio-group>
-      </b-form-group>
+        <FormKit type="form" :actions="false">
+          <FormKit type="multi-step" tab-style="progress">
+            <FormKit type="step" name="lifts">
+              <FormKit
+                  id="squat"
+                  type="number"
+                  label="Squat"
+                  validation="required"
+              />
+              <FormKit
+                id="bench"
+                type="number"
+                label="Bench"
+                validation="required"
+              />
+              <FormKit
+                id="deadlift"
+                type="number"
+                label="Deadlift"
+                validation="required"
+              />
+              <FormKit
+                id="liftUnits"
+                type="radio"
+                label="Units"
+                :options="['lbs', 'kg']"
+                validation="required"
+              />
+            </FormKit>
 
-      <br>
+            <FormKit type="step" name="liftClass">
+              <FormKit
+                  id="equipped"
+                  type="radio"
+                  label="Equipped?"
+                  :options="['Equipped', 'Raw']"
+                  validation="required"
+              />
+              <FormKit
+                id="bodyweight"
+                type="number"
+                label="Bodyweight"
+                validation="required"
+              />
+              <FormKit
+                id="bodyweightUnits"
+                type="radio"
+                label="Units"
+                :options="['lbs', 'kg']"
+                validation="required"
+              />
+            </FormKit>
 
-      <b-form-row>
-        <b-col cols="3"></b-col>
-        <b-col cols="2">
-          <b-form-group
-            id="age-group"
-            label="Age:"
-            label-for="age-input"
-          >
-            <b-form-input
-              id="age-input"
-              v-model="form.age"
-              type="text"
-              placeholder="Enter age here"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col cols="2">
-          <b-form-group
-            id="bodyweight-group"
-            label="Bodyweight:"
-            label-for="bodyweight-input"
-          >
-            <b-form-input
-              id="bodyweight-input"
-              v-model="form.bodyweight"
-              type="text"
-              placeholder="Enter bodyweight here"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col cols="2">
-          <b-form-group
-            id="bodyweight-units-group"
-          >
-            <b-form-radio-group
-              id="bodyweight-units-radio"
-              v-model="selectedBodyweightUnits"
-              :options="bodyweightOptions"
-              stacked
-            ></b-form-radio-group>
-          </b-form-group>
-        </b-col>
-        <b-col cols="3"></b-col>
-      </b-form-row>
+            <FormKit type="step" name="demographics">
+              <FormKit
+                  id="age"
+                  type="number"
+                  label="Age"
+                  validation="required"
+              />
+              <FormKit
+                id="gender"
+                type="radio"
+                label="Gender"
+                :options="['Male', 'Female', 'Non-Binary']"
+                validation="required"
+              />
 
-      <br>
+              <!-- using step slot for submit button-->
+              <template #stepNext>
+                <FormKit type="submit" />
+              </template>
+            </FormKit>
+          </FormKit>
+        </FormKit>
+      </b-col>
 
-      <b-form-row>
-        <b-col cols="3"></b-col>
-        <b-col cols="3">
-          <b-form-group id="sex-group" label="Gender?">
-            <b-form-radio-group
-              id="sex-radio"
-              v-model="selectedSex"
-              :options="sexOptions"
-            ></b-form-radio-group>
-          </b-form-group>
-        </b-col>
-
-        <b-col cols="3">
-          <b-form-group id="equipped-group" label="Raw or Equipped?">
-            <b-form-radio-group
-              id="equipped-radio"
-              v-model="selectedEquipped"
-              :options="equippedOptions"
-            ></b-form-radio-group>
-          </b-form-group>
-        </b-col>
-        <b-col cols="3"></b-col>
-      </b-form-row>
-
-      <br>
-
-      <b-button type="submit" variant="primary">Submit</b-button>
-
-    </b-form>
+      <b-col cols=3></b-col>
+    </b-row>
+  </b-container>
 </template>
 
+<style>
+  .formkit-steps {
+    background-color: white;
+  }
+</style>
+
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   name: 'PowerliftingForm',
   data() {
-    return {
-      form: {
-        squat: null,
-        bench: null,
-        deadlift: null,
-        liftUnits: 'lbs',
-        age: null,
-        bodyweight: null,
-        bodyweightUnits: 'lbs',
-        sex: 'M',
-        equipped: 'equipped',
-      },
-      show: false,
-      selectedLiftUnits: 'lbs',
-      liftOptions: [
-        { text: 'Pounds', value: 'lbs' },
-        { text: 'Kilos', value: 'kgs' },
-      ],
-      selectedBodyweightUnits: 'lbs',
-      bodyweightOptions: [
-        { text: 'Pounds', value: 'lbs' },
-        { text: 'Kilos', value: 'kgs' },
-      ],
-      selectedSex: 'M',
-      sexOptions: [
-        { text: 'Male', value: 'M' },
-        { text: 'Female', value: 'F' },
-        { text: 'Non-Binary', value: 'Mx' },
-      ],
-      selectedEquipped: 'raw',
-      equippedOptions: [
-        { text: 'Raw', value: 'raw' },
-        { text: 'Equipped', value: 'equipped' },
-      ],
-    };
+    return {};
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
+    onSubmit(formData, node) {
+      /* event.preventDefault();
       this.$emit('requestSubmitted', true);
 
       const path = 'http://localhost:5000/analyze-lifts';
@@ -215,7 +134,9 @@ export default {
           console.error(error);
         });
 
-      this.show = true;
+      this.show = true; */
+      console.log(formData);
+      console.log(node);
     },
   },
 };
