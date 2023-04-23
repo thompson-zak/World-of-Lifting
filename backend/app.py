@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import powerliftingLogic
-
+import database.populatePowerliftingTable as powerliftingDB
 
 # configuration
 DEBUG = True
@@ -29,6 +29,12 @@ def analyze_lifts():
         'status': 'Success',
         'data': data
     }
+
+    return jsonify(response)
+
+@app.route('/init-pl', methods=['POST'])
+def init_pl():
+    response = powerliftingDB.init_pl()
 
     return jsonify(response)
 

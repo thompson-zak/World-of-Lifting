@@ -13,7 +13,13 @@ To begin this will only include powerlifting (i.e. squat, bench, deadlift) but I
 
 ### Running the website locally (Docker)
 sudo docker-compose up -d --build  
-
+  
+<--Check logs-->
+sudo docker ps
+  
+<--Kill container-->
+sudo docker stop [container]
+  
 ### Running the website locally (Separate)
 Important commands for each component  
   
