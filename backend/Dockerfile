@@ -5,7 +5,7 @@ FROM python:3.10.6-slim-buster
 WORKDIR /
 
 # Copy the dependencies
-COPY requirements.txt
+COPY requirements.txt ./
 
 # Install the dependencies
 RUN pip3 install -r requirements.txt

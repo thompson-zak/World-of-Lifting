@@ -1,8 +1,8 @@
 #Base image
 FROM node:lts-alpine
 
-#Install serve package
-RUN npm i -g serve
+# install simple http server for serving static content
+RUN npm install -g http-server
 
 # Set the working directory
 WORKDIR /app
@@ -20,7 +20,7 @@ COPY . .
 RUN npm run build
 
 # Expose a port
-EXPOSE 5000
+EXPOSE 8080
 
 # Executables
-CMD [ "serve", "-s", "dist" ]
+CMD [ "http-server", "dist" ]

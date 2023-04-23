@@ -11,7 +11,10 @@ To begin this will only include powerlifting (i.e. squat, bench, deadlift) but I
 4. Enhance site to include running data
 5. Enhance site to include odd lifts (exact lifts TBD)
 
-### Running the website locally
+### Running the website locally (Docker)
+sudo docker-compose up -d --build  
+
+### Running the website locally (Separate)
 Important commands for each component  
   
 Flask App:  
