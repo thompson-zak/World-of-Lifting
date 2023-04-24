@@ -120,7 +120,8 @@ export default {
     onSubmit(formData) {
       this.$emit('requestSubmitted', true);
 
-      const path = 'http://backend:5000/analyze-lifts';
+      const path = 'http://localhost:5000/analyze-lifts';
+      console.log(path);
       const equippedBool = formData.formMultiStep.liftClass.equipped === 'Equipped';
       const formGender = formData.formMultiStep.demographics.gender;
       let gender = 'M';

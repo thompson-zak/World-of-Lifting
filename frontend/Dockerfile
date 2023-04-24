@@ -16,11 +16,15 @@ RUN npm install
 # Copy the project files
 COPY . .
 
-# Build the project
-RUN npm run build
-
 # Expose a port
 EXPOSE 8080
 
+# Development Build
+CMD ["npm", "run", "serve"]
+
+# Production Build
+# Build the project
+#RUN npm run build
+
 # Executables
-CMD [ "http-server", "dist" ]
+# CMD [ "http-server", "dist" ]
