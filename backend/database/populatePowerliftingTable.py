@@ -11,15 +11,15 @@ import database.dbUtils as dbUtils
 def init_pl():
 	print('Starting download of open powerlifting data...')
 	startDownloadTime = time.time()
-	urllib.request.urlretrieve('https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip', '../backend/downloads/openpowerlifting-latest.zip')
+	urllib.request.urlretrieve('https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip', './openpowerlifting-latest.zip')
 	print('Completed download of open powerlifting data in {} seconds'.format(round(time.time() - startDownloadTime, 2)))
 
-	zf = zipfile.ZipFile('../backend/downloads/openpowerlifting-latest.zip')
+	zf = zipfile.ZipFile('./openpowerlifting-latest.zip')
 	for info in zf.infolist():
 		if re.match('openpowerlifting.*/openpowerlifting.*\.csv', info.filename):
 			info.filename = 'openpowerlifting.csv'
-			print('Extracting powerlifting csv to downloads folder...')
-			zf.extract(info, '../backend/downloads/')
+			print('Extracting powerlifting csv...')
+			zf.extract(info, './')
 			print('Extraction complete')
 
 	print('Ingesting powerlifting data to DB...')
@@ -32,7 +32,7 @@ def init_pl():
 
 	try:
 		engine.connect().execution_options(autocommit=True).execute(text('TRUNCATE TABLE powerlifting'))
-		with pd.read_csv('../backend/downloads/openpowerlifting.csv', chunksize=50000, usecols=requiredColumns, dtype=dataTypes, parse_dates=dateColumns) as reader:
+		with pd.read_csv('./openpowerlifting.csv', chunksize=50000, usecols=requiredColumns, dtype=dataTypes, parse_dates=dateColumns) as reader:
 			for chunk in reader:
 				chunk.columns = [colName.lower() for colName in requiredColumns]
 				chunk.to_sql('powerlifting', engine, if_exists='append', index=False)
@@ -44,8 +44,8 @@ def init_pl():
 		return { 'success': bool(0), 'errorMessage': errorMsg }
 
 	print('Cleaning up downloaded and extracted files...')
-	os.remove('../backend/downloads/openpowerlifting.csv')
-	os.remove('../backend/downloads/openpowerlifting-latest.zip')
+	os.remove('./openpowerlifting.csv')
+	os.remove('./openpowerlifting-latest.zip')
 	print('Downloaded and extracted files have been deleted.')
 	print('Table refresh completed.')
 	return {'success': bool(1), 'errorMessage': ''}

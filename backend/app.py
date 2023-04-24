@@ -38,6 +38,10 @@ def init_pl():
 
     return jsonify(response)
 
+with app.app_context():
+    # Populate powerlifting database prior to starting app
+    powerliftingDB.init_pl()
 
 if __name__ == '__main__':
+    # Start app
     app.run()
