@@ -32,11 +32,11 @@ def analyze_lifts():
 
     return jsonify(response)
 
-@app.route('/init-pl', methods=['POST'])
-def init_pl():
-    response = powerliftingDB.init_pl()
-
-    return jsonify(response)
+# @app.route('/init-pl', methods=['POST'])
+# def init_pl():
+#     response = powerliftingDB.init_pl()
+#
+#     return jsonify(response)
 
 def create_app(env):
     app = Flask(__name__)
