@@ -38,9 +38,16 @@ def init_pl():
 
     return jsonify(response)
 
-with app.app_context():
-    # Populate powerlifting database prior to starting app
-    powerliftingDB.init_pl()
+def create_app(env):
+    app = Flask(__name__)
+    app.config['env'] = env
+    print('Passed item: ', app.config['env'])
+
+    # Populate powerlifting database prior to starting app if running on prod
+    if(env == 'prod'):
+        powerliftingDB.init_pl()
+
+    return app
 
 if __name__ == '__main__':
     # Start app
