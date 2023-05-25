@@ -32,15 +32,22 @@ def analyze_lifts():
 
     return jsonify(response)
 
-@app.route('/init-pl', methods=['POST'])
-def init_pl():
-    response = powerliftingDB.init_pl()
+# @app.route('/init-pl', methods=['POST'])
+# def init_pl():
+#     response = powerliftingDB.init_pl()
+#
+#     return jsonify(response)
 
-    return jsonify(response)
+def create_app(env):
+    app = Flask(__name__)
+    app.config['env'] = env
+    print('Passed item: ', app.config['env'])
 
-with app.app_context():
-    # Populate powerlifting database prior to starting app
-    powerliftingDB.init_pl()
+    # Populate powerlifting database prior to starting app if running on prod
+    if(env == 'prod'):
+        powerliftingDB.init_pl()
+
+    return app
 
 if __name__ == '__main__':
     # Start app

@@ -24,7 +24,7 @@ CMD ["npm", "run", "serve"]
 
 # Production Build
 # Build the project
-#RUN npm run build
+# RUN npm run build
 
 # Executables
 # CMD [ "http-server", "dist" ]
