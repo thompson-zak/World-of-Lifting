@@ -10,8 +10,9 @@ SQUAT_COL = 'best3squatkg'
 BENCH_COL = 'best3benchkg'
 DEADLIFT_COL = 'best3deadliftkg'
 
+
 def analyze_powerlifting(lift_data):
-    #Grab all user provided data that is relevant to powerlifting analysis
+    # Grab all user provided data that is relevant to powerlifting analysis
     squat = lift_data.get('squat')
     bench = lift_data.get('bench')
     deadlift = lift_data.get('deadlift')
@@ -28,30 +29,33 @@ def analyze_powerlifting(lift_data):
     sex = lift_data.get('sex')
     equipped = lift_data.get('equipped')
 
-    #Query all relevant SBD data from DB and load into dataframe
+    # Query all relevant SBD data from DB and load into dataframe
     engine = dbUtils.getDatabaseConnection()
 
     query_select = 'SELECT * FROM powerlifting WHERE'
 
-    #TODO - end analysis if age class is invalid
+    # TODO - end analysis if age class is invalid
     age_class = get_age_class(age)
 
-    #Need to allow for age or ageClass since neither are guaranteed in dataset
+    # Need to allow for age or ageClass since neither are guaranteed in dataset
     age_clause = '(age={} OR age={} OR age={})'.format(age, (age + .5), (age - .5))
     age_class_clause = "(ageClass='{}')".format(age_class)
     age_condition = '({} OR {})'.format(age_clause, age_class_clause)
 
-    #Allow for range of 2.5kg up and down for bodyweight
+    # Allow for range of 2.5kg up and down for bodyweight
     if bw_units == 'lbs':
         bw = convert_to_kg(bw)
     bw_clause = '(bodyweightKg BETWEEN {} AND {})'.format((bw - 2.5), (bw + 2.5))
-    #TODO - eventually allow for BW class to include more data, however it will be more imprecise. Maybe allow user to choose accuracy level?
+    # TODO - eventually allow for BW class to include more data, however it
+    # will be more imprecise. Maybe allow user to choose accuracy level?
 
     sex_clause = "sex='{}'".format(sex)
     equipped_clause = "equipment!='Raw'" if equipped else "equipment='Raw'"
 
-    query_conditions = '{AGE} AND {BODYWEIGHT} AND {SEX} AND {EQUIPMENT}'.format(AGE=age_condition, BODYWEIGHT=bw_clause, SEX=sex_clause, EQUIPMENT=equipped_clause)
-    query = '{SELECT} {CONDITION}'.format(SELECT=query_select, CONDITION=query_conditions)
+    query_conditions = '{AGE} AND {BODYWEIGHT} AND {SEX} AND {EQUIPMENT}'.format(
+        AGE=age_condition, BODYWEIGHT=bw_clause, SEX=sex_clause, EQUIPMENT=equipped_clause)
+    query = '{SELECT} {CONDITION}'.format(
+        SELECT=query_select, CONDITION=query_conditions)
     df = pd.read_sql(query, engine)
 
     # Calculate data required for plotting lift performance
@@ -69,23 +73,50 @@ def analyze_powerlifting(lift_data):
     bench_col = df[BENCH_COL]
     deadlift_col = df[DEADLIFT_COL]
 
-    squat_percentile = round(stats.percentileofscore(squat_col, squat, nan_policy='omit'))
-    bench_percentile = round(stats.percentileofscore(bench_col, bench, nan_policy='omit'))
-    deadlift_percentile = round(stats.percentileofscore(deadlift_col, deadlift, nan_policy='omit'))
-    
+    squat_percentile = round(
+        stats.percentileofscore(
+            squat_col,
+            squat,
+            nan_policy='omit'))
+    bench_percentile = round(
+        stats.percentileofscore(
+            bench_col,
+            bench,
+            nan_policy='omit'))
+    deadlift_percentile = round(
+        stats.percentileofscore(
+            deadlift_col,
+            deadlift,
+            nan_policy='omit'))
+
     count = df.count()
 
     # TODO - add X axis labels
 
-    squat_coords, squat_highlight = get_coordinates_list(round(squat_col.mean(),2), round(squat_col.std(),2), squat)
-    bench_coords, bench_highlight = get_coordinates_list(round(bench_col.mean(),2), round(bench_col.std(),2), bench)
-    deadlift_coords, deadlift_highlight = get_coordinates_list(round(deadlift_col.mean(),2), round(deadlift_col.std(),2), deadlift)
+    squat_coords, squat_highlight = get_coordinates_list(
+        round(squat_col.mean(), 2), round(squat_col.std(), 2), squat)
+    bench_coords, bench_highlight = get_coordinates_list(
+        round(bench_col.mean(), 2), round(bench_col.std(), 2), bench)
+    deadlift_coords, deadlift_highlight = get_coordinates_list(
+        round(deadlift_col.mean(), 2), round(deadlift_col.std(), 2), deadlift)
 
     return {
-        'squat': {'percentile': squat_percentile, 'count': int(count[SQUAT_COL]), 'coordinates': squat_coords, 'highlight': squat_highlight},
-        'bench': {'percentile': bench_percentile, 'count': int(count[BENCH_COL]), 'coordinates': bench_coords, 'highlight': bench_highlight},
-        'deadlift': {'percentile': deadlift_percentile, 'count': int(count[DEADLIFT_COL]), 'coordinates': deadlift_coords, 'highlight': deadlift_highlight}
-    }
+        'squat': {
+            'percentile': squat_percentile,
+            'count': int(count[SQUAT_COL]),
+            'coordinates': squat_coords,
+            'highlight': squat_highlight},
+        'bench': {
+            'percentile': bench_percentile,
+            'count': int(count[BENCH_COL]),
+            'coordinates': bench_coords,
+            'highlight': bench_highlight},
+        'deadlift': {
+            'percentile': deadlift_percentile,
+            'count': int(count[DEADLIFT_COL]),
+            'coordinates': deadlift_coords,
+            'highlight': deadlift_highlight}}
+
 
 def get_coordinates_list(mean, deviation, lift):
     x_data = np.arange(mean - (3 * deviation), mean + (3 * deviation), 1)
@@ -96,23 +127,29 @@ def get_coordinates_list(mean, deviation, lift):
     highlight_y = y_data[highlight_index]
 
     # Naive merge, assuming lists of same length
-    return [{'x': x_data[i], 'y': y_data[i]} for i in range(0, len(x_data))], {'x': highlight_x, 'y': highlight_y}
+    return [{'x': x_data[i], 'y': y_data[i]}
+            for i in range(0, len(x_data))], {'x': highlight_x, 'y': highlight_y}
 
-def find_nearest_index(array,value):
+
+def find_nearest_index(array, value):
     idx = np.searchsorted(array, value, side="left")
-    if idx > 0 and (idx == len(array) or math.fabs(value - array[idx-1]) < math.fabs(value - array[idx])):
-        return idx-1
+    if idx > 0 and (idx == len(array) or math.fabs(
+            value - array[idx - 1]) < math.fabs(value - array[idx])):
+        return idx - 1
     else:
         return idx
+
 
 def convert_to_kg(weight):
     return weight / 2.2049
 
+
 def convert_to_lb(weight):
     return weight * 2.2049
 
+
 def get_age_class(age):
-    if age >= 5 and age <=12:
+    if age >= 5 and age <= 12:
         return '5-12'
     elif age >= 13 and age <= 15:
         return '13-15'
