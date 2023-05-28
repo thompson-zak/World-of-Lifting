@@ -18,9 +18,10 @@ CREATE TABLE powerlifting (
 CREATE TABLE running (
 	id bigserial PRIMARY KEY,
 	Sex varchar(2) NOT NULL,
-	MinAge decimal NOT NULL,
-	MaxAge decimal NOT NULL,
+	Age decimal NOT NULL,
 	Event varchar(20) NOT NULL,
 	FinishTime integer NOT NULL,
-	Classification varchar(20) NOT NULL
+	Classification varchar(20) NOT NULL,
+	DataSource varchar(20) NOT NULL,
+	SourceId integer NOT NULL
 );
