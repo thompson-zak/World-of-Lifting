@@ -14,3 +14,13 @@ CREATE TABLE powerlifting (
 	Date date NOT NULL,
 	created_date date DEFAULT now() NOT NULL
 );
+
+CREATE TABLE running (
+	id bigserial PRIMARY KEY,
+	Sex varchar(2) NOT NULL,
+	MinAge decimal NOT NULL,
+	MaxAge decimal NOT NULL,
+	Event varchar(20) NOT NULL,
+	FinishTime integer NOT NULL,
+	Classification varchar(20) NOT NULL
+);

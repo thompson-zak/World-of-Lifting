@@ -14,8 +14,10 @@ To begin this will only include powerlifting (i.e. squat, bench, deadlift) but I
 #### Future Items
 3. Create web scraper to pull running data and have basic anaylsis available
 4. Build user facing page with interactive running data
-5. Enhance site to include odd lifts
-6. Deploy app to the cloud for public accessibility (Azure?)
+5. Set up github pipeline for code style and bug detection
+6. Add server-side validation for user inputs
+7. Enhance site to include odd lifts
+8. Deploy app to the cloud for public accessibility (Azure?)
   
 ### Running the website locally (Docker)
 sudo docker-compose up -d --build  
