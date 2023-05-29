@@ -21,7 +21,6 @@ CREATE TABLE running (
 	Age decimal NOT NULL,
 	Event varchar(20) NOT NULL,
 	FinishTime integer NOT NULL,
-	Classification varchar(20) NOT NULL,
 	DataSource varchar(20) NOT NULL,
 	SourceId integer NOT NULL
 );
