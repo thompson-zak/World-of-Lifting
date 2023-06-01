@@ -40,7 +40,12 @@ def scrape_race_wire():
 		
 		
 
-def insert_race_wire_event():
+def insert_race_wire_event(event_id):
+	# Insert df into DB here
+	data = get_race_wire_event_data(event_id)
+
+
+def get_race_wire_event_data(event_id):
 	columns = [
 		'Sex',
 		'Age',
@@ -59,7 +64,7 @@ def insert_race_wire_event():
 
 	driver = webdriver.Chrome(cdm, options=chrome_options)
 
-	driver.get('https://my.racewire.com/results/{}'.format(37454))
+	driver.get('https://my.racewire.com/results/{}'.format(event_id))
 	html = driver.page_source
 
 	soup = BeautifulSoup(html, 'html.parser')
@@ -78,16 +83,14 @@ def insert_race_wire_event():
 		    new_row = {
 		    	'Sex': sex, 
 		    	'Age': age, 
-		    	'Event': '5 KM', 
+		    	'Event': '5 KM', # Currently hardcoded, expand once we have more data to scrape 
 		    	'FinishTime': finish_time, 
 		    	'DataSource': "RaceWire", 
-		    	'SourceId': 37454
+		    	'SourceId': event_id
 		    }
 		    df.loc[len(df.index)] = new_row
 
-	print(df)
-
-	# Insert df into DB here
+	return df
 
 
 def get_race_wire_event_ids():
