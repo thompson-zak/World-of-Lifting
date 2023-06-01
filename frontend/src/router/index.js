@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '../components/HomePage.vue';
 import PowerliftingHomePage from '../components/powerlifting/PowerliftingHomePage.vue';
 import StrongmanHomePage from '../components/odd_lifts/StrongmanHomePage.vue';
+import RunningHomePage from '../components/running/RunningHomePage.vue';
 
 const routes = [
   {
@@ -19,7 +20,11 @@ const routes = [
     name: 'oddLifts',
     component: StrongmanHomePage,
   },
-  // TODO - include stub Running Home Page here
+  {
+    path: '/running',
+    name: 'running',
+    component: RunningHomePage,
+  },
 ];
 
 const router = createRouter({

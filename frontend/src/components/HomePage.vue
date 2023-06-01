@@ -78,7 +78,7 @@ export default {
       alert('The odd lifts section is curently a WIP. Please come back later!');
     },
     onRunningSelect() {
-      alert('The running section is curently a WIP. Please come back later!');
+      this.$router.push({ path: '/running' });
     },
   },
   data() {},
