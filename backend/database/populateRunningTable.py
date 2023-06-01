@@ -5,6 +5,9 @@ import time
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 #import database.dbUtils as dbUtils
 
 # All states with a non-zero amount of race entries
@@ -47,10 +50,19 @@ def insert_race_wire_event():
 		'SourceId'
 	]
 
-	df = pd.DataFrame(columns)
+	df = pd.DataFrame(columns = columns)
 
-	page = requests.get('https://my.racewire.com/results/{}'.format(37454))
-	soup = BeautifulSoup(page.content, 'html.parser')
+	cdm = ChromeDriverManager().install()
+
+	chrome_options = Options()  
+	chrome_options.add_argument("--headless")
+
+	driver = webdriver.Chrome(cdm, options=chrome_options)
+
+	driver.get('https://my.racewire.com/results/{}'.format(37454))
+	html = driver.page_source
+
+	soup = BeautifulSoup(html, 'html.parser')
 	tables = soup.find_all('table', id='grid')
 
 	if len(tables) > 0:
@@ -58,20 +70,20 @@ def insert_race_wire_event():
 		rows = table_body.find_all('tr')
 		for row in rows:
 		    cols = row.find_all('td')
-		    print(cols)
 		    cols = [col.text for col in cols]
 		    athlete_details = cols[2].split(' | ')
 		    age = athlete_details[0]
 		    sex = athlete_details[1]
 		    finish_time = cols[3]
-		    df.append({
+		    new_row = {
 		    	'Sex': sex, 
 		    	'Age': age, 
 		    	'Event': '5 KM', 
 		    	'FinishTime': finish_time, 
 		    	'DataSource': "RaceWire", 
 		    	'SourceId': 37454
-		    })
+		    }
+		    df.loc[len(df.index)] = new_row
 
 	print(df)
 
